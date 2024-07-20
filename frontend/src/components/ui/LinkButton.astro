@@ -1,0 +1,20 @@
+---
+export interface Props {
+  href: string;
+  class?: string;
+  reload?: boolean;
+}
+---
+
+<a 
+  href={Astro.props.href} 
+  class=`
+    inline-flex items-center justify-center 
+    text-base font-medium text-center text-text 
+    rounded-sm bg-pri focus:ring-4 focus:ring-pri/20
+    ${Astro.props.class}
+  `
+  data-astro-reload={Astro.props.reload}
+>
+  <slot />
+</a>

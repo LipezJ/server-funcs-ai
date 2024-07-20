@@ -1,0 +1,18 @@
+{
+  "name": "ai-workers",
+  "workspaces": {
+    "packages": [
+      "frontend",
+      "backend"
+    ]
+  },
+  "scripts": {
+    "dev-front": "npm run dev --workspace=frontend",
+    "dev-back": "npm run dev --workspace=backend",
+    "build-front": "npm run build --workspace=frontend"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "typescript": "^5.5.3"
+  }
+}

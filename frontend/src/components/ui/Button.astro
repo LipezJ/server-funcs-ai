@@ -1,0 +1,25 @@
+---
+export interface Props {
+  style: 'pri' | 'sec';
+  id?: string;
+  class?: string;
+}
+
+const styles = {
+  pri: `text-base font-medium text-center text-text 
+    rounded-sm bg-pri border-2 border-pri focus:ring-4 focus:ring-pri/20`,
+  sec: `text-base font-medium text-center border rounded-sm box-content
+    focus:ring-4 text-sec border-paragraph border-2 focus:ring-gray-200/50`,
+}
+---
+
+<button 
+  id={Astro.props.id}
+  class=`
+    inline-flex items-center justify-center box-border
+    ${styles[Astro.props.style]}
+    ${Astro.props.class}
+  `
+>
+  <slot />
+</button>

@@ -1,0 +1,30 @@
+# build output
+frontend/dist/
+# generated types
+frontend/.astro/
+
+# dependencies
+node_modules
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.backend
+.env.frontend
+
+# macOS-specific files
+frontend/.DS_Store
+
+# jetbrains setting folder
+frontend/.idea/
+
+# vs-code settings folder
+.vscode/launch.json
+
+backend/ui/

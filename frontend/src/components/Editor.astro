@@ -1,0 +1,48 @@
+---
+import CodeEditor from "./CodeEditor.astro";
+import Button from "./ui/Button.astro";
+---
+
+<section id="chat-editor" class="relative p-4 h-full bg-sec rounded-sm text-text overflow-auto">
+  <div class="absolute right-0 mr-4">
+    <Button id="chat-button" style="sec" class="px-4 py-1 text-text">
+      Chat
+    </Button>
+  </div>
+  Hi mdf
+</section>
+<section id="code-editor" class="relative p-4 h-full bg-sec rounded-sm text-text overflow-auto">
+  <CodeEditor>
+    <div class="absolute right-0 mr-4">
+      <Button id="edit-button" style="sec" class="px-4 py-1 text-text">
+        Edit
+      </Button>
+    </div>
+  </CodeEditor>
+</section>
+
+<script>
+  import { Mode } from "@/lib/code.store";
+
+  Mode.mode.subscribe((value) => {
+    if (value === 'editor') {
+      document.getElementById('code-editor')?.classList.remove('hidden');
+      document.getElementById('chat-editor')?.classList.add('hidden');
+    } else if (value === 'chat') {
+      document.getElementById('code-editor')?.classList.add('hidden');
+      document.getElementById('chat-editor')?.classList.remove('hidden');
+    } 
+  })
+
+  const $editorButton = document.querySelector('#edit-button'); 
+  const $chatButton = document.querySelector('#chat-button');
+
+  const togleMode = ($button: Element) => {
+    Mode.toggle()
+    $button.textContent = Mode.mode.value === 'editor' ? 'Edit' : 'Chat';
+  }
+
+  $editorButton?.addEventListener('click', () => togleMode($editorButton));
+  $chatButton?.addEventListener('click', () => togleMode($chatButton));
+</script>
+

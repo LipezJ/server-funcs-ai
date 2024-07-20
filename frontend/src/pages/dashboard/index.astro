@@ -1,0 +1,27 @@
+---
+import FunctionCard from '@/components/FunctionCard.astro'
+import Content from '@/layouts/Content.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout>
+  <Content>
+    <section class="grid w-full max-w-[70rem] px-4 md:px-24 mb-12 md:pb-0 mx-auto">
+      <h1 class="row-span-1 text-sec font-semibold text-xl mb-6">Functions</h1>
+      <div class="grid md:grid-cols-2 gap-5 row-span-11 overflow-auto">
+        <FunctionCard name="hello" description="world! lorem world! loremworld! loremworld! loremworld! lorem" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+        <FunctionCard name="hello" description="world!" />
+      </div>
+      <!-- <div class="grid grid-rows-8 gap-2 md:col-span-4">
+        <Editor />
+      </div> -->
+    </section>
+  </Content>
+</Layout>

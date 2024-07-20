@@ -1,0 +1,25 @@
+---
+import HeadBase from "@/components/HeadBase.astro";
+import Header from "@/components/Header.astro";
+
+export interface Props {
+	class?: string;
+}
+---
+
+<html lang="en">
+	<head>
+		<HeadBase />
+		<title>Astro</title>
+	</head>
+	<body 
+    class=`
+      absolute inset-0 -z-10 min-h-screen w-full
+      bg-sec bg-[radial-gradient(#a7a9be08_1px,transparent_1px)] [background-size:16px_16px]
+			${Astro.props.class}
+    `
+  >
+		<Header />
+    <slot />
+	</body>
+</html>

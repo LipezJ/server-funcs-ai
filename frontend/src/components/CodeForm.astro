@@ -1,0 +1,30 @@
+---
+import Button from './ui/Button.astro';
+---
+
+<section class="flex flex-col gap-1 h-full">
+  <iframe id="test-frame" src=":blank" class="w-full h-full row-span-8 rounded-sm"></iframe>
+  <form id="test-form" class="flex items-end mr-1 w-full">
+    <input 
+      name="test-url" 
+      type="text" 
+      class="row-span-1 flex items-center gap-1 rounded-sm border-2 border-paragraph p-2 mr-2 h-fit w-full"
+    >
+    <Button style="pri" class="p-2 h-fit">Test</Button>
+  </form>
+</section>
+
+<script>
+  const $form  = document.querySelector('#test-form');
+
+  $form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!e.target) return;
+
+    const form = new FormData(e.target as HTMLFormElement);
+    const url = form.get('test-url') as string;
+
+    const $frame = document.querySelector("#test-frame") as HTMLIFrameElement;
+    $frame.src = url;
+  });
+</script>
