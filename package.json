@@ -9,8 +9,8 @@
   "scripts": {
     "dev-front": "npm run dev --workspace=frontend",
     "build-front": "npm run build --workspace=frontend",
-    "dev-back": "cargo run --workspace=backend",
-    "build-back": "cargo build --release --workspace=backend"
+    "dev-back": "cd backend && cargo run",
+    "build-back": "cd backend && cargo build --release"
   },
   "devDependencies": {
     "@types/node": "^20.14.11",
