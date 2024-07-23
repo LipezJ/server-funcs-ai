@@ -27,4 +27,5 @@ frontend/.idea/
 # vs-code settings folder
 .vscode/launch.json
 
-backend/ui/
+backend/target/
+fly.toml

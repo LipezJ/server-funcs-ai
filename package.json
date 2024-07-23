@@ -8,8 +8,9 @@
   },
   "scripts": {
     "dev-front": "npm run dev --workspace=frontend",
-    "dev-back": "npm run dev --workspace=backend",
-    "build-front": "npm run build --workspace=frontend"
+    "build-front": "npm run build --workspace=frontend",
+    "dev-back": "cargo run --workspace=backend",
+    "build-back": "cargo build --release --workspace=backend"
   },
   "devDependencies": {
     "@types/node": "^20.14.11",
