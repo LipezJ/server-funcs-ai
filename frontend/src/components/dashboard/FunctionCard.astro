@@ -3,27 +3,24 @@ import LinkButton from '@/components/ui/LinkButton.astro';
 
 export interface Props {
   name: string;
-  description: string;
 }
 ---
 
-<section class="grid grid-rows-5 justify-self-center max-w-xl min-w-2xl w-full min-h-40 text-start bg-main/5 py-2 border-2 border-paragraph/70 rounded-md">
+<section 
+  class=`grid grid-rows-5 justify-self-center max-w-xl min-w-2xl w-full min-h-40
+  text-start bg-main/5 py-2 border border-paragraph/50 rounded-md`
+>
   <article class="row-span-4 px-4 pt-2 h-full">
     <header class="flex justify-between gap-2 items-end">
       <h1 class="text-sec font-semibold text-xl h-full">
         <a href="" class="underline">{Astro.props.name}</a>
       </h1>
-      <LinkButton href="/dashboard/editor" reload={true} class="h-fit px-4 py-1.5">edit</LinkButton> 
+      <LinkButton style="pri" href="/dashboard/editor" reload={true} class="h-fit px-4 py-1.5 text-text">
+        edit
+      </LinkButton> 
     </header>
-    <p class="text-paragraph font-medium">
-      {
-        Astro.props.description.length > 100
-          ? `${Astro.props.description.slice(0, 100)}...`
-          : Astro.props.description
-      }
-    </p>
   </article>
-  <div class="text-sm text-end row-span-1 h-fit px-2 border-t-2 border-paragraph/70">
+  <div class="text-sm text-end text-gray-600 row-span-1 h-fit px-2 border-t border-paragraph/50">
     Latest update: 2 days ago
   </div>
 </section>

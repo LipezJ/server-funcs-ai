@@ -1,8 +1,16 @@
 ---
 export interface Props {
   href: string;
+  style: 'pri' | 'sec';
   class?: string;
   reload?: boolean;
+}
+
+const styles = {
+  pri: `text-base font-medium text-center 
+    rounded-md bg-pri focus:ring-4 focus:ring-pri/02`,
+  sec: `text-base font-medium text-center 
+    border rounded-md focus:ring-4 border-paragraph focus:ring-paragraph`
 }
 ---
 
@@ -10,8 +18,7 @@ export interface Props {
   href={Astro.props.href} 
   class=`
     inline-flex items-center justify-center 
-    text-base font-medium text-center text-text 
-    rounded-sm bg-pri focus:ring-4 focus:ring-pri/20
+    ${styles[Astro.props.style]}
     ${Astro.props.class}
   `
   data-astro-reload={Astro.props.reload}

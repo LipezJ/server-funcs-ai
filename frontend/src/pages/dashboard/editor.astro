@@ -1,36 +1,33 @@
 ---
-import Content from '@/layouts/Content.astro'
-import Layout from '@/layouts/Layout.astro'
+import BlankLayout from '@/layouts/DashboardLayout.astro'
 import Button from '@/components/ui/Button.astro'
 import CodeEditor from '@/components/dashboard/Editor.astro'
 import CodeForm from '@/components/dashboard/CodeForm.astro'
 ---
 
-<Layout>
-  <Content>
-    <section class="flex flex-col gap-4 max-w-7xl w-full md:h-[95dvh] mx-auto pb-3">
-      <header class="flex justify-between items-center w-full px-2 md:px-10 mx-auto">
-        <h1 class="font-semibold text-lg">Function Name</h1>
-        <div>
-          <Button style="sec" class="py-1 px-2">
-            Settings
-          </Button>
-          <Button id="save" style="sec" class="px-4 py-1">
-            Save
-          </Button>
-          <Button style="pri" class="py-1 px-2">
-            Deploy
-          </Button>
-        </div>
-      </header>
-      <div class="grid md:grid-cols-3 gap-0.5 h-full">
-        <div class="min-h-[85dvh] max-h-[85dvh] md:col-span-2 h-full">
-          <CodeEditor />
-        </div>
-        <div class="md:col-span-1">
-          <CodeForm />
-        </div>
+<BlankLayout>
+  <section class="flex flex-col gap-4 max-w-7xl w-full md:h-[100dvh] mx-auto p-3 pb-6">
+    <header class="flex justify-between items-center w-full px-2 md:px-10 mx-auto">
+      <h1 class="font-semibold text-lg">Function Name</h1>
+      <div>
+        <Button style="sec" class="py-1 px-2">
+          Settings
+        </Button>
+        <Button id="save" style="sec" class="px-4 py-1">
+          Save
+        </Button>
+        <Button style="pri" class="py-1 px-2">
+          Deploy
+        </Button>
       </div>
-    </section>
-  </Content>
-</Layout>
+    </header>
+    <div class="grid md:grid-cols-3 gap-0.5 h-full">
+      <div class="h-full md:col-span-2">
+        <CodeEditor />
+      </div>
+      <div class="md:col-span-1">
+        <CodeForm />
+      </div>
+    </div>
+  </section>
+</BlankLayout>

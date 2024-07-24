@@ -1,0 +1,15 @@
+---
+import Header from "@/components/dashboard/Header.astro";
+import HeadBase from "@/components/HeadBase.astro";
+---
+
+<html lang="en">
+	<head>
+		<HeadBase />
+		<title>Astro</title>
+	</head>
+	<body class=`absolute inset-0 -z-10 min-h-screen w-full ${Astro.props.class}`>
+		<Header />
+    <slot />
+	</body>
+</html>

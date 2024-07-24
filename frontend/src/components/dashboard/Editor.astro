@@ -12,13 +12,12 @@ import Button from "@/components/ui/Button.astro";
   Hi mdf
 </section>
 <section id="code-editor" class="relative p-4 h-full bg-sec rounded-sm text-text overflow-auto">
-  <CodeEditor>
-    <div class="absolute right-0 mr-4">
-      <Button id="edit-button" style="sec" class="px-4 py-1 text-text">
-        Edit
-      </Button>
-    </div>
-  </CodeEditor>
+  <div class="absolute right-0 mr-4">
+    <Button id="edit-button" style="sec" class="px-4 py-1 text-text">
+      Edit
+    </Button>
+  </div>
+  <CodeEditor />
 </section>
 
 <script>
