@@ -1,11 +1,11 @@
 ---
-import BlankLayout from '@/layouts/DashboardLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 import Button from '@/components/ui/Button.astro'
 import CodeEditor from '@/components/dashboard/Editor.astro'
 import CodeForm from '@/components/dashboard/CodeForm.astro'
 ---
 
-<BlankLayout>
+<DashboardLayout>
   <section class="flex flex-col gap-4 max-w-7xl w-full md:h-[100dvh] mx-auto p-3 pb-6">
     <header class="flex justify-between items-center w-full px-2 md:px-10 mx-auto">
       <h1 class="font-semibold text-lg">Function Name</h1>
@@ -30,4 +30,4 @@ import CodeForm from '@/components/dashboard/CodeForm.astro'
       </div>
     </div>
   </section>
-</BlankLayout>
+</DashboardLayout>

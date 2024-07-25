@@ -1,14 +1,14 @@
 ---
 import { fade } from 'astro:transitions'
 import FunctionCard from '@/components/dashboard/FunctionCard.astro'
-import BlankLayout from '@/layouts/DashboardLayout.astro'
+import DashboardLayout from '@/layouts/DashboardLayout.astro'
 ---
 
-<BlankLayout>
+<DashboardLayout>
   <section 
     transition:name="content-slider" 
     transition:animate={fade({ duration: '0.05s' })} 
-    class="grid w-full md:max-w-7xl px-4 md:px-8 mb-12 md:pb-0 mx-auto"
+    class="grid w-full md:max-w-7xl px-4 md:px-8 mb-12 md:pb-0 pt-8 mx-auto"
   >
     <div>
       <h1 class="row-span-1 text-sec font-bold text-3xl mb-6">Functions</h1>
@@ -26,4 +26,4 @@ import BlankLayout from '@/layouts/DashboardLayout.astro'
       <FunctionCard name="hello" />
     </div>
   </section>
-</BlankLayout>
+</DashboardLayout>
