@@ -5,14 +5,11 @@ import CodeEditor from '@/components/dashboard/Editor.astro'
 import CodeForm from '@/components/dashboard/CodeForm.astro'
 ---
 
-<DashboardLayout>
-  <section class="flex flex-col gap-4 max-w-7xl w-full md:h-[100dvh] mx-auto p-3 pb-6">
+<DashboardLayout class="max-h-dvh">
+  <section class="flex flex-col gap-4 max-w-7xl w-full md:h-dvh md:max-h-dvh mx-auto p-3 pb-4">
     <header class="flex justify-between items-center w-full px-2 md:px-10 mx-auto">
       <h1 class="font-semibold text-lg">Function Name</h1>
       <div>
-        <Button style="sec" class="py-1 px-2">
-          Settings
-        </Button>
         <Button id="save" style="sec" class="px-4 py-1">
           Save
         </Button>
@@ -21,8 +18,8 @@ import CodeForm from '@/components/dashboard/CodeForm.astro'
         </Button>
       </div>
     </header>
-    <div class="grid md:grid-cols-3 gap-0.5 h-full">
-      <div class="h-full md:col-span-2">
+    <div class="grid md:grid-cols-3 gap-0.5 h-full flex-1 overflow-hidden">
+      <div class="md:col-span-2 h-full flex flex-col overflow-hidden">
         <CodeEditor />
       </div>
       <div class="md:col-span-1">
