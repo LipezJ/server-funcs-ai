@@ -1,4 +1,5 @@
 ---
+import Loader from "../icons/Loader.astro";
 import Button from "../ui/Button.astro";
 ---
 
@@ -86,16 +87,22 @@ import Button from "../ui/Button.astro";
     }
 
     async aiResponse() {
+      const $messageBox = this.querySelector('#message-box')
+
+      const $loaderTemplate = this.getElementsByTagName('template')[0] as HTMLTemplateElement
+      const $messageLoader = $loaderTemplate.content.cloneNode(true) as HTMLElement
+      $messageBox?.appendChild($messageLoader)
+
       const result = await streamText({
         model: ollama('phi3'),
         system: AI_SYSTEM_PROMPT,
         messages: this.messages
       })
 
-      const $messageBox = this.querySelector('#message-box')
       const $message = document.createElement('div')
       $message.className = `message-assistant`
 
+      $messageBox?.querySelector("#message-loader")?.remove()
       $messageBox?.appendChild($message)
 
       for await (const part of result.textStream) {
@@ -126,8 +133,15 @@ import Button from "../ui/Button.astro";
       type="text" 
       class="items-center gap-1 rounded-sm border border-paragraph p-2 mr-1 h-fit w-full"
     />
-    <Button style="pri" class="px-2">Send</Button>
+    <Button style="pri" class="px-2 disabled:bg-pri/60 disabled:border-pri/60">
+      Send
+    </Button>
   </form>
+  <template>
+    <div id="message-loader" class="message-assistant">
+      <Loader />
+    </div>
+  </template>
 </chat-box>
 
 <style is:global>
