@@ -1,15 +1,11 @@
 ---
 import { fade } from "astro:transitions";
-
-export interface Props {
-  class?: string;
-}
 ---
 
 <section 
   transition:name="content-slider" 
   transition:animate={fade({ duration: '0.05s' })} 
-  class=`min-h-[100dvh] bg-main rounded-t-2xl p-2 ${Astro.props.class}`
+  class=`min-h-[100dvh] bg-main rounded-t-2xl p-2 max-w-6xl mx-auto`
 >
   <div class="w-1/5 h-2 mb-4 mx-auto bg-gray-400/70 rounded-xl"></div>
   <slot />
