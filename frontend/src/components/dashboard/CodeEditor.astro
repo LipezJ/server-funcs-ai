@@ -22,6 +22,10 @@
       codeAtom.set(code)
     });
 
+    codeAtom.subscribe((value) => {
+      codeEditor.updateCode(value)
+    });
+
     // @ts-ignore
     codeEditor.updateCode(`function helloWorld() {\n\tconsole.log("Hello, world!");\n}`);
     codeEditor.updateOptions({ tab: "\t" });

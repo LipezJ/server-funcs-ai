@@ -4,6 +4,7 @@ import Button from "../ui/Button.astro";
 ---
 
 <script>
+  import { Mode, codeAtom } from '@/lib/code.store'
   import { streamText, type CoreMessage } from 'ai'
   import { ollama } from 'ollama-ai-provider'
   import showdown from 'showdown'
@@ -58,7 +59,7 @@ import Button from "../ui/Button.astro";
     }
 
     setDisable(status: boolean) {
-      const $button = this.querySelector('button') as HTMLButtonElement
+      const $button = this.querySelector('form button') as HTMLButtonElement
       
       if (!$button) return
 
@@ -83,13 +84,16 @@ import Button from "../ui/Button.astro";
 
       this.setDisable(true)
       this.aiResponse()
-        .finally(() => this.setDisable(false))
+        .finally(() => {
+          console.log("fin de ia")
+          this.setDisable(false)
+        })
     }
 
     async aiResponse() {
       const $messageBox = this.querySelector('#message-box')
 
-      const $loaderTemplate = this.getElementsByTagName('template')[0] as HTMLTemplateElement
+      const $loaderTemplate = this.querySelector('template#loader') as HTMLTemplateElement
       const $messageLoader = $loaderTemplate.content.cloneNode(true) as HTMLElement
       $messageBox?.appendChild($messageLoader)
 
@@ -112,21 +116,52 @@ import Button from "../ui/Button.astro";
       const content = $message.textContent ?? ""
       const html = converter.makeHtml(content)
 
+      const $codeTemplate = this.querySelector('template#code') as HTMLTemplateElement
+
       $message.setHTMLUnsafe(html)
-      $message.querySelectorAll('pre code').forEach((block) => {
+
+      $message.querySelectorAll('pre').forEach((block) => {
+        const $code = block.querySelector('code');
+
         // @ts-ignore
-        hljs.highlightBlock(block)
-      })
+        hljs.highlightBlock($code);
+
+        const $codeBlock = $codeTemplate.content.cloneNode(true) as HTMLElement;
+        const $codeContainer = $codeBlock.querySelector('code-block');
+
+        $codeContainer?.insertBefore(block.cloneNode(true), $codeContainer?.firstElementChild);
+        block.replaceWith($codeBlock);
+      });
 
       this.messages.push({ role: 'assistant', content })
     }
   }
 
+  class CodeBlock extends HTMLElement {
+    constructor() {
+      super()
+    }
+
+    connectedCallback() {
+      const $button = this.querySelector('button') as HTMLButtonElement
+      console.log(this)
+
+      $button?.addEventListener('click', () => {
+        const $code = this.querySelector('pre code') as HTMLElement
+        const code = $code.textContent
+
+        codeAtom.set(code ?? "")
+        Mode.toggle()
+      })
+    }
+  }
+
   customElements.define('chat-box', Chat)
+  customElements.define('code-block', CodeBlock)
 </script>
 
 <chat-box class="flex flex-col items-center h-full gap-1 text-black overflow-hidden">
-  <div id="message-box" class="overflow-y-auto flex-1 flex flex-col gap-2.5 pr-0.5 w-full"></div>
+  <div id="message-box" class="overflow-y-auto flex-1 flex flex-col justify-end gap-2.5 pr-0.5 w-full"></div>
   <form id="message-form" class="flex gap-1 md:w-5/6">
     <input 
       name="message" 
@@ -137,10 +172,19 @@ import Button from "../ui/Button.astro";
       Send
     </Button>
   </form>
-  <template>
+
+  <template id="loader">
     <div id="message-loader" class="message-assistant">
       <Loader />
     </div>
+  </template>
+
+  <template id="code">
+    <code-block class="h-fit flex flex-col">
+      <div class="flex justify-end">
+        <Button style="pri" class="px-1.5">Use</Button>
+      </div>
+    </code-block>
   </template>
 </chat-box>
 
@@ -167,8 +211,9 @@ import Button from "../ui/Button.astro";
   pre {
     background-color: #0f0e17;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    margin: 0.5rem 0;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    margin: 0.5rem 0 0.1rem 0;
     overflow-x: auto
   }
 </style>
