@@ -8,13 +8,12 @@ import DashboardLayout from '@/layouts/DashboardLayout.astro'
   <section 
     transition:name="content-slider" 
     transition:animate={fade({ duration: '0.05s' })} 
-    class="grid w-full md:max-w-7xl px-4 md:px-8 mb-12 md:pb-0 pt-8 mx-auto"
+    class="grid w-full md:max-w-7xl px-4 md:px-8 pb-12 mx-auto"
   >
-    <div>
-      <h1 class="row-span-1 text-sec font-bold text-3xl mb-6">Functions</h1>
-      <p></p>
-    </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 gap-x-6 row-span-11 overflow-auto">
+    <h1 class="text-3xl font-bold my-6">
+      Functions
+    </h1>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 gap-x-6 row-span-11 px-2 overflow-auto">
       <FunctionCard name="hello" />
       <FunctionCard name="hello" />
       <FunctionCard name="hello" />
