@@ -1,0 +1,13 @@
+---
+export interface Props {
+  name?: string;
+  placeholder?: string;
+}
+---
+
+<input 
+  name={Astro.props.name}
+  placeholder={Astro.props.placeholder}
+  type="text" 
+  class="items-center gap-1 rounded-md border border-paragraph/50 p-2 mr-1 h-fit w-full"
+/>

@@ -1,0 +1,39 @@
+---
+import SettingCard from "@/components/dashboard/SettingCard.astro";
+import Input from "@/components/ui/Input.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout>
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <h1 class="text-3xl font-bold mt-6">
+      Settings
+    </h1>
+    <div class="grid gap-6 px-2 pt-6">
+      <SettingCard 
+        title="IA type" 
+        description="select if you want to use an ollama or openai" 
+        action="/api/profile"
+      >
+        <select class="w-full p-2 border border-paragraph/50 rounded-md">
+          <option value="ollama">Ollama</option>
+          <option value="openai">OpenAI</option>
+        </select>
+      </SettingCard>
+      <SettingCard 
+        title="Ollama AI name" 
+        description="update your Ollama AI settings" 
+        action="/api/profile"
+      >
+        <Input placeholder="AI Name" />
+      </SettingCard>
+      <SettingCard 
+        title="OpenAI token" 
+        description="set your OpenAI token" 
+        action="/api/profile"
+      >
+        <Input placeholder="your OpenAI token here" />
+      </SettingCard>
+    </div>
+  </section>
+</DashboardLayout>

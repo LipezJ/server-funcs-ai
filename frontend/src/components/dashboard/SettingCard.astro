@@ -1,0 +1,32 @@
+---
+import Button from '../ui/Button.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  action: string;
+}
+---
+
+<form 
+  action={Astro.props.action} 
+  method="POST"
+  class="justify-self-center w-full text-start bg-main/5 border border-paragraph/50 rounded-md"
+>
+  <section class="px-6 py-2">
+    <h1 class="text-2xl font-bold">
+      {Astro.props.title}
+    </h1>
+    <p class="text-paragraph">
+      {Astro.props.description}
+    </p>
+    <div class="py-4 px-2">
+      <slot/>
+    </div>
+  </section>
+  <section class="text-end text-gray-600 px-6 py-2 h-fit border-t border-paragraph/50">
+    <Button style="pri" class="h-fit px-4 py-1.5 text-text">
+      Save
+    </Button>
+  </section>
+</form>
