@@ -5,17 +5,17 @@ import Button from "@/components/ui/Button.astro";
 ---
 
 <section id="chat-editor" class="relative p-4 h-full bg-sec rounded-sm text-text">
-  <div class="absolute right-0 mr-4">
+  <div class="absolute right-0 mr-4 z-10">
     <Button id="chat-button" style="sec" class="px-4 py-1 text-text bg-sec/20">
-      Chat
+      Editor
     </Button>
   </div>
   <Chat />
 </section>
-<section id="code-editor" class="relative p-4 h-full bg-sec rounded-sm text-text">
-  <div class="absolute right-0 mr-4">
+<section id="code-editor" class="relative h-full p-4 bg-sec rounded-sm text-text">
+  <div class="absolute right-0 mr-4 z-10">
     <Button id="edit-button" style="sec" class="px-4 py-1 text-text bg-sec/20">
-      Edit
+      Chat
     </Button>
   </div>
   <CodeEditor />
