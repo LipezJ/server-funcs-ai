@@ -18,10 +18,6 @@
     // @ts-ignore
     const codeEditor = new CodeJar($editor, highlight);
 
-    codeEditor.onUpdate((code: string) => {
-      codeAtom.set(code)
-    });
-
     codeAtom.subscribe((value) => {
       codeEditor.updateCode(value)
     });
