@@ -85,10 +85,7 @@ import Input from "../ui/Input.astro";
 
       this.setDisable(true)
       this.aiResponse()
-        .finally(() => {
-          console.log("fin de ia")
-          this.setDisable(false)
-        })
+        .finally(() => this.setDisable(false))
     }
 
     async aiResponse() {
@@ -145,7 +142,6 @@ import Input from "../ui/Input.astro";
 
     connectedCallback() {
       const $button = this.querySelector('button') as HTMLButtonElement
-      console.log(this)
 
       $button?.addEventListener('click', () => {
         const $code = this.querySelector('pre code') as HTMLElement
