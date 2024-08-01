@@ -1,15 +1,12 @@
 ---
 import Button from '@/components/ui/Button.astro';
+import Input from '@/components/ui/Input.astro';
 ---
 
 <section class="flex flex-col gap-1 h-full">
   <iframe id="test-frame" src=":blank" class="w-full h-full row-span-8 rounded-sm"></iframe>
   <form id="test-form" class="flex items-end mr-1 w-full">
-    <input 
-      name="test-url" 
-      type="text" 
-      class="row-span-1 flex items-center gap-1 rounded-sm border border-paragraph p-2 mr-1 h-fit w-full"
-    >
+    <Input name="test-url" placeholder="URL to test" />
     <Button style="pri" class="p-2 h-fit">Test</Button>
   </form>
 </section>
