@@ -1,6 +1,7 @@
 ---
 import HeadBase from "@/components/HeadBase.astro";
 import Header from "@/components/Header.astro";
+import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
 	class?: string;
@@ -10,6 +11,7 @@ export interface Props {
 <html lang="en">
 	<head>
 		<HeadBase />
+		<ViewTransitions />
 		<title>Astro</title>
 	</head>
 	<body 
