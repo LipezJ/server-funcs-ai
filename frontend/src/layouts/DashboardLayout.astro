@@ -8,8 +8,10 @@ import HeadBase from "@/components/HeadBase.astro";
 		<HeadBase />
 		<title>Astro</title>
 	</head>
-	<body class=`absolute inset-0 -z-10 min-h-screen w-full ${Astro.props.class}`>
+	<body class="min-h-screen w-full flex flex-col gap-0">
 		<Header />
-    <slot />
+		<main class={`flex-1 overflow-hidden ${Astro.props.class}`}>
+			<slot />
+		</main>
 	</body>
 </html>

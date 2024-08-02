@@ -6,27 +6,27 @@ import CodeForm from '@/components/dashboard/CodeForm.astro'
 import ApiKeyForm from '@/components/dashboard/ApiKeyForm.astro'
 ---
 
-<DashboardLayout class="max-h-dvh">
-  <section class="flex flex-col gap-4 max-w-7xl w-full md:h-dvh md:max-h-dvh mx-auto p-3 pb-4">
-    <header class="flex justify-between items-center w-full px-2 md:px-10 mx-auto">
-      <h1 class="font-semibold text-lg">Function Name</h1>
-      <div>
-        <Button id="save" style="sec" class="px-4 py-1">
-          Save
-        </Button>
-        <Button style="pri" class="py-1 px-2">
-          Deploy
-        </Button>
+<DashboardLayout class="flex flex-col h-screen">
+  <div class="flex-1 flex flex-col gap-2 overflow-hidden">
+    <section class="flex-1 flex flex-col my-1 mx-10 rounded-md border">
+      <header class="flex justify-between items-center py-2 px-6 text-lg font-semibold border-b">
+        <h1>Function</h1>
+        <div>
+          <Button style="pri" class="py-1 px-2">
+            Deploy
+          </Button>
+        </div>
+      </header>
+      <div class="flex-1 grid md:grid-cols-4 gap-0.5">
+        <div class="md:col-span-1 hidden md:block overflow-auto p-2">
+          <CodeForm />
+        </div>
+        <div class="md:col-span-3 overflow-auto">
+          <CodeEditor />
+        </div>
       </div>
-    </header>
-    <div class="grid md:grid-cols-3 gap-0.5 h-full overflow-hidden">
-      <div class="md:col-span-2 h-full overflow-hidden">
-        <CodeEditor />
-      </div>
-      <div class="md:col-span-1">
-        <CodeForm />
-      </div>
-    </div>
-  </section>
-  <ApiKeyForm />
+    </section>
+  </div>
 </DashboardLayout>
+
+<ApiKeyForm />
