@@ -32,21 +32,14 @@ import Modal from '../ui/Modal.astro'
 
     if (!token) return
     apiKey.set(token)
-    hideModal()
+    // @ts-ignore
+    $modal.hideModal()
   })
 
-  const showModal = () => {
-    $modal?.classList.remove("hide")
-    $modal?.classList.add("show")
-  }
-
-  const hideModal = () => {
-    $modal?.classList.remove("show")
-    $modal?.classList.add("hide")
-  }
-
   window.addEventListener('load', () => {
-    if (Settings.getType() === "openai") 
-      showModal()
+    if (Settings.getType() === "openai") {
+      // @ts-ignore
+      $modal.showModal()
+    }
   })
 </script>
