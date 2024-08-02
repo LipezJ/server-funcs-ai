@@ -1,0 +1,52 @@
+---
+import SettingCard from '@/components/dashboard/SettingCard.astro'
+import Input from '@/components/ui/Input.astro'
+import Modal from '../ui/Modal.astro'
+---
+
+<Modal id="apikey-modal">
+  <SettingCard 
+    id="openai-token"
+    title="OpenAI token" 
+    description="set your OpenAI token to use the OpenAI assistant" 
+    notice="if you don't have one, you can use Ollama instead (you can change it in the settings)"
+    action="/api/profile"
+  >
+    <Input name="openai-token" placeholder="your OpenAI token here" />
+  </SettingCard>
+</Modal>
+
+<script>
+  import { Settings } from "@/lib/settings"
+  import { apiKey } from "@/lib/settings.store"
+
+  const $formOpenAIToken = document.getElementById("openai-token")
+  const $modal = document.getElementById("apikey-modal")
+
+  $formOpenAIToken?.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const $form = e.target as HTMLFormElement
+    const formData = new FormData($form)
+
+    const token = formData.get("openai-token")?.toString()
+
+    if (!token) return
+    apiKey.set(token)
+    hideModal()
+  })
+
+  const showModal = () => {
+    $modal?.classList.remove("hide")
+    $modal?.classList.add("show")
+  }
+
+  const hideModal = () => {
+    $modal?.classList.remove("show")
+    $modal?.classList.add("hide")
+  }
+
+  window.addEventListener('load', () => {
+    if (Settings.getType() === "openai") 
+      showModal()
+  })
+</script>

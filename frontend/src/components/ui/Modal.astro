@@ -1,0 +1,52 @@
+---
+import Content from '@/layouts/Content.astro'
+
+export interface Props {
+  id: string;
+}
+---
+
+<section class="fixed bottom-0 w-full z-10 mt-auto">
+  <div id={Astro.props.id} class="modal mx-auto max-w-2xl self-end">
+    <Content style="fit">
+      <div class="max-w-2xl mx-auto px-2 md:px-10 pb-4">
+        <slot/>
+      </div>
+    </Content>
+  </div>
+</section>
+
+<style>
+  .modal {
+    transition: transform 0.15s ease-out;
+    transform: translateY(100%);
+  }
+
+  .modal.show {
+    transform: translateY(0);
+  }
+
+  .modal.hide {
+    transform: translateY(100%);
+  }
+</style>
+
+<script is:inline define:vars={{id: Astro.props.id}}>
+  const $modal = document.getElementById(id)
+
+  window.showModal = () => {
+    $modal?.classList.remove("hide");
+    $modal?.classList.add("show");
+  }
+
+  window.hideModal = () => {
+    $modal?.classList.remove("show");
+    $modal?.classList.add("hide");
+  }
+
+  window.addEventListener('click', (event) => {   
+    if (!document.getElementById('clickbox')?.contains($modal) && !$modal?.contains(event.target)){
+      hideModal();
+    }
+  });
+</script>

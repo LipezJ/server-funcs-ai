@@ -5,35 +5,69 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout>
-  <section class="max-w-3xl mx-auto px-4 pb-12">
-    <h1 class="text-3xl font-bold mt-6">
-      Settings
-    </h1>
-    <div class="grid gap-6 px-2 pt-6">
-      <SettingCard 
-        title="IA type" 
-        description="select if you want to use an ollama or openai" 
-        action="/api/profile"
-      >
-        <select class="w-full p-2 border border-paragraph rounded-md">
-          <option value="ollama">Ollama</option>
-          <option value="openai">OpenAI</option>
-        </select>
-      </SettingCard>
-      <SettingCard 
-        title="Ollama AI name" 
-        description="update your Ollama AI settings" 
-        action="/api/profile"
-      >
-        <Input placeholder="AI Name" />
-      </SettingCard>
-      <SettingCard 
-        title="OpenAI token" 
-        description="set your OpenAI token" 
-        action="/api/profile"
-      >
-        <Input placeholder="your OpenAI token here" />
-      </SettingCard>
-    </div>
-  </section>
+	<section class="max-w-3xl mx-auto px-4 pb-12">
+		<h1 class="text-3xl font-bold mt-6">Settings</h1>
+		<div class="grid gap-6 px-2 pt-6">
+			<SettingCard
+				id="ia-type"
+				title="IA type"
+				description="select if you want to use an ollama or openai"
+				notice="if you select OpenAI, you need to set your openai token every time you go to the editor (this is for security reasons)"
+				action="/api/profile"
+			>
+				<select
+					name="ia-type"
+					class="w-full p-2 border border-paragraph rounded-md"
+				>
+					<option value="ollama">Ollama</option>
+					<option value="openai">OpenAI</option>
+				</select>
+			</SettingCard>
+			<SettingCard
+				id="ia-model"
+				title="Ollama AI name"
+				description="update your Ollama AI settings"
+        notice="this is obligatory if you want to use Ollama, you can change the model you want to use"
+				action="/api/profile"
+			>
+				<Input name="ia-model" placeholder="AI Name" />
+			</SettingCard>
+		</div>
+	</section>
 </DashboardLayout>
+
+<script>
+	import { Settings } from "@/lib/settings";
+
+	const $formIAType = document.getElementById("ia-type");
+	const $formIAModel = document.getElementById("ia-model");
+
+  const $formIAModelInput = $formIAModel?.querySelector("input");
+  if ($formIAModelInput) {
+    $formIAModelInput.value = Settings.getOllamaModel();
+  }
+  const $formIATypeSelect = $formIAType?.querySelector("select");
+  if ($formIATypeSelect) {
+    $formIATypeSelect.value = Settings.getType();
+  }
+
+	const formParse = (e: SubmitEvent) => {
+		const $form = e.target as HTMLFormElement;
+		const formData = new FormData($form);
+		return Object.fromEntries(formData);
+	};
+
+	$formIAType?.addEventListener("submit", async (e) => {
+		e.preventDefault();
+		const data = formParse(e);
+		const type = data["ia-type"].toString();
+		Settings.setType(type);
+	});
+
+	$formIAModel?.addEventListener("submit", async (e) => {
+		e.preventDefault();
+		const data = formParse(e);
+		const model = data["ia-model"].toString();
+		Settings.setOllamaModel(model);
+	});
+</script>

@@ -2,13 +2,16 @@
 import Button from '../ui/Button.astro';
 
 export interface Props {
+  id: string;
   title: string;
   description: string;
+  notice?: string;
   action: string;
 }
 ---
 
 <form 
+  id={Astro.props.id}
   action={Astro.props.action} 
   method="POST"
   class="justify-self-center w-full text-start bg-main/5 border border-paragraph/50 rounded-md"
@@ -22,6 +25,13 @@ export interface Props {
     </p>
     <div class="py-4 px-2">
       <slot/>
+      {
+        Astro.props.notice && (
+          <p class="text-xs text-paragraph">
+            {Astro.props.notice}
+          </p>
+        )
+      }
     </div>
   </section>
   <section class="text-end text-gray-600 px-6 py-2 h-fit border-t border-paragraph/50">
