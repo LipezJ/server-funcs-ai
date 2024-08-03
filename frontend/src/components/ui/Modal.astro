@@ -6,7 +6,7 @@ export interface Props {
 }
 ---
 
-<section id="modal-container" class="hidden fixed bottom-0 w-full z-10 mt-auto">
+<section id="modal-container" class="fixed bottom-0 w-full z-10 mt-auto">
   <div id={Astro.props.id} class="modal mx-auto max-w-2xl self-end">
     <Content style="fit">
       <div class="max-w-2xl mx-auto px-2 md:px-10 pb-4">
@@ -29,6 +29,10 @@ export interface Props {
   .modal.hide {
     transform: translateY(100%);
   }
+
+  #modal-container.hide {
+    display: none;
+  }
 </style>
 
 <script is:inline define:vars={{id: Astro.props.id}}>
@@ -36,16 +40,18 @@ export interface Props {
   const $modalContainer = document.getElementById('modal-container')
 
   $modal.showModal = () => {
-    $modalContainer.classList.remove("hidden");
+    $modalContainer.classList.remove("hide");
     $modal?.classList.remove("hide");
     $modal?.classList.add("show");
   }
 
   $modal.hideModal = () => {
     $modal.hideCallBack && $modal.hideCallBack();
-    $modalContainer.classList.add("hidden");
-    $modal?.classList.remove("show");
     $modal?.classList.add("hide");
+    $modal?.classList.remove("show");
+    setTimeout(() => {
+      $modalContainer.classList.add("hide");
+    }, 150);
   }
 
   window.addEventListener('click', (event) => {   
