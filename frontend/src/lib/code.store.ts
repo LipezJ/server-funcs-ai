@@ -1,5 +1,5 @@
 import { atom } from 'nanostores'
-
+import { DEFAULT_CODE } from './const'
 
 export class Mode {
   static modes = [ 'editor', 'chat' ]
@@ -11,4 +11,4 @@ export class Mode {
   }
 }
 
-export const codeAtom = atom('')
+export const codeAtom = atom(DEFAULT_CODE)

@@ -1,31 +1,27 @@
-<link href="/code.css" rel="stylesheet">
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script is:inline type="module" src="https://unpkg.com/@hey-web-components/monaco-editor"></script>
 
-<div id="editor" class="editor language-js w-full h-full"></div>
+<hey-monaco-editor lang="javascript"></hey-monaco-editor>
 
 <script>
-  import { CodeJar } from "codejar";
-  import { codeAtom } from "@/lib/code.store"
+  import { codeAtom } from "@/lib/code.store";
 
-  const highlight = (editor: any) => {
-    editor.textContent = editor.textContent;
-    // @ts-ignore
-    hljs.highlightBlock(editor);
-  };
+  const $editor = document.querySelector('hey-monaco-editor');
 
-  const initEditor = () => {
-    const $editor = document.querySelector("#editor");
+  if ($editor) {
     // @ts-ignore
-    const codeEditor = new CodeJar($editor, highlight);
+    $editor.options = {
+      theme: "vs-dark",
+      readOnly: false,
+      minimap: {
+        enabled: false
+      }
+    }
+    // @ts-ignore
+    $editor.language = 'javascript';
 
     codeAtom.subscribe((value) => {
-      codeEditor.updateCode(value)
-    });
-
     // @ts-ignore
-    codeEditor.updateCode(`function helloWorld() {\n\tconsole.log("Hello, world!");\n}`);
-    codeEditor.updateOptions({ tab: "\t" });
+      $editor.value = value;
+    })
   }
-
-  initEditor();
 </script>
