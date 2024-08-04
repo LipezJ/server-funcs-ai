@@ -33,7 +33,7 @@ export default function ChatMessage({ role, content, data }: Message) {
   }
 
   return (
-    <div className="bg-main px-4 py-2 rounded-md w-max break-words">
+    <div className="bg-main px-4 py-2 mr-2 rounded-md w-fit break-words">
       <strong>{`${role}: `}</strong>
       {
         role !== 'data' && 
