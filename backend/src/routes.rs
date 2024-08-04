@@ -1,34 +1,54 @@
-use axum::Json;
+use std::sync::Arc;
+
+use axum::{extract::State, response::{Html, IntoResponse}, Json};
+use base64::prelude::*;
 use serde::Deserialize;
 use axum::extract::Query;
-use serde_json::{json, Value};
+use serde_json::json;
 
-use crate::{runner, TIMEOUT};
-use crate::utils::empty_string_as_none;
+use crate::{runner, AppState, TIMEOUT};
+use crate::utils::{empty_string_as_none, get_code_from_db, ResponseType};
 
 #[derive(Debug, Deserialize)]
 pub struct FunctionParams {
 	#[serde(default, deserialize_with = "empty_string_as_none")]
-	args: Option<String>
+	props: Option<String>,
+	id: String,
+	decode: Option<bool>
 }
 
-pub async fn runner(Query(params): Query<FunctionParams>) -> Json<Value> {
-	let code = r#"
-    async function test(size) {
-      let str = '';
-      for (let i = 0; i < size; i++) {
-        str += 'a';  // Añadimos un carácter para cada iteración
-      }
-      return str;
-    }
+pub async fn runner(
+	Query(params): Query<FunctionParams>,
+	State(shared_app_state): State<Arc<AppState>>
+) -> impl IntoResponse {
+	let id = params.id;
 
-		test
-	"#.to_string();
+	let code_response = match get_code_from_db(id, shared_app_state).await {
+		Ok(code) => code,
+		Err(error) => return Json(json!({ "error": error })).into_response()
+	};
 
-	let args = params.args.unwrap_or("{}".to_string());
+	let args = match params.props {
+		Some(mut args) => {
+			if params.decode.unwrap_or(false) {
+				let decode_args = BASE64_STANDARD
+					.decode(args)
+					.unwrap_or(b"{}".to_vec());
+		
+				args = String::from_utf8(decode_args).unwrap();
+			}
+			args
+		},
+		None => "{}".to_string()
+	};
 
-	match runner::run(code, args, TIMEOUT) {
-		Ok(value) => Json(json!(value)),
-		Err(error) => Json(json!({ "error": error }))
+	match runner::run(code_response.code, args, TIMEOUT) {
+		Ok(value) => {
+			match code_response.response_type {
+				ResponseType::JSON => Json(json!(value)).into_response(),
+				ResponseType::HTML => Html(value).into_response()
+			}
+		},
+		Err(error) => Json(json!({ "error": error })).into_response()
 	}
 }
