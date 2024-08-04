@@ -26,7 +26,8 @@ async fn main() {
 	let shared_app_state = Arc::new(AppState { db });
 
 	let app = Router::new()
-		.route("/runner", routing::get(routes::runner))
+		.route("/runner", routing::get(routes::runner_get))
+		.route("/runner", routing::post(routes::runner_post))
 		.with_state(shared_app_state);
 
 	let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
