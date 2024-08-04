@@ -1,4 +1,4 @@
-type SettingsType = 'ollama' | 'openai'
+export type SettingsType = 'ollama' | 'openai'
 
 interface SettingsOptions {
   type: SettingsType
