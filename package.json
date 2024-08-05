@@ -13,7 +13,6 @@
     "build-back": "cd backend && cargo build --release"
   },
   "devDependencies": {
-    "@types/node": "^20.14.11",
-    "typescript": "^5.5.3"
+    "@biomejs/biome": "1.8.3"
   }
 }

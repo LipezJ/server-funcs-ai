@@ -19,10 +19,10 @@ export const AI_SYSTEM_PROMPT = `
       return params.a + params.b;
     }
   "
-`
+`;
 
 export const DEFAULT_CODE = `async function handler({ a, b }) {
   return a + b;
 }
 handler;
-`
+`;
