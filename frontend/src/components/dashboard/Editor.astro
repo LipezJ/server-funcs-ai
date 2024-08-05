@@ -1,53 +1,64 @@
 ---
-import Chat from "./Chat";
-import CodeEditor from "./CodeEditor.astro";
-import Button from "@/components/ui/Button.astro";
+import Chat from "@components/dashboard/Chat";
+import CodeEditor from "@components/dashboard/CodeEditor.astro";
+import Button from "@components/ui/Button.astro";
 ---
 
-<section id="chat-editor" class="hidden relative p-4 bg-sec rounded-sm text-text overflow-hidden h-full">
-  <div class="absolute right-0 mr-4 z-10">
-    <Button id="chat-button" style="sec" class="px-4 py-1 text-text bg-sec/20">
-      Editor
-    </Button>
-  </div>
-  <Chat client:only />
+<section
+	id="chat-editor"
+	class="hidden relative p-4 bg-sec rounded-sm text-text overflow-hidden h-full"
+>
+	<div class="absolute right-0 mr-4 z-10">
+		<Button
+			id="chat-button"
+			style="sec"
+			class="px-4 py-1 text-text bg-sec/20"
+		>
+			Editor
+		</Button>
+	</div>
+	<Chat client:only />
 </section>
 <section id="code-editor" class="relative bg-[#1e1e1e] py-4 h-full">
-  <div class="absolute right-0 mr-4 z-10">
-    <Button id="edit-button" style="sec" class="px-4 py-1 text-text bg-sec/20">
-      Chat
-    </Button>
-  </div>
-  <CodeEditor />
+	<div class="absolute right-0 mr-4 z-10">
+		<Button
+			id="edit-button"
+			style="sec"
+			class="px-4 py-1 text-text bg-sec/20"
+		>
+			Chat
+		</Button>
+	</div>
+	<CodeEditor />
 </section>
 
 <script>
-  import { Mode } from "@/lib/code.store";
+	import { Mode } from "@lib/code.store";
 
-  Mode.mode.subscribe((value) => {
-    if (value === 'editor') {
-      document.getElementById('code-editor')?.classList.remove('hidden');
-      document.getElementById('chat-editor')?.classList.add('hidden');
-    } else if (value === 'chat') {
-      document.getElementById('code-editor')?.classList.add('hidden');
-      document.getElementById('chat-editor')?.classList.remove('hidden');
-    } 
-  })
+	Mode.mode.subscribe((value) => {
+		if (value === "editor") {
+			document.getElementById("code-editor")?.classList.remove("hidden");
+			document.getElementById("chat-editor")?.classList.add("hidden");
+		} else if (value === "chat") {
+			document.getElementById("code-editor")?.classList.add("hidden");
+			document.getElementById("chat-editor")?.classList.remove("hidden");
+		}
+	});
 
-  const $editorButton = document.querySelector('#edit-button'); 
-  const $chatButton = document.querySelector('#chat-button');
+	const $editorButton = document.querySelector("#edit-button");
+	const $chatButton = document.querySelector("#chat-button");
 
-  const togleMode = ($button: Element) => {
-    Mode.toggle()
-    $button.textContent = Mode.mode.value === 'editor' ? 'Edit' : 'Chat';
-  }
+	const togleMode = ($button: Element) => {
+		Mode.toggle();
+		$button.textContent = Mode.mode.value === "editor" ? "Edit" : "Chat";
+	};
 
-  $editorButton?.addEventListener('click', () => togleMode($editorButton));
-  $chatButton?.addEventListener('click', () => togleMode($chatButton));
+	$editorButton?.addEventListener("click", () => togleMode($editorButton));
+	$chatButton?.addEventListener("click", () => togleMode($chatButton));
 </script>
 
 <style is:global>
-  pre code {
-    border-radius: 0.375rem;
-  }
+	pre code {
+		border-radius: 0.375rem;
+	}
 </style>

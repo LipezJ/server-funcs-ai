@@ -1,7 +1,7 @@
 import { type Message } from 'ai/react';
-import Loader from '../icons/Loader';
-import { useFunctionChat } from '@/lib/chat.hook';
-import ChatMessage from './ChatMessage';
+import Loader from '@components/icons/Loader';
+import { useFunctionChat } from '@lib/chat.hook';
+import ChatMessage from '@components/dashboard/ChatMessage';
 
 import "highlight.js/styles/vs2015.min.css"
 

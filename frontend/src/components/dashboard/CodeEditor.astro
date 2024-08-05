@@ -1,27 +1,30 @@
-<script is:inline type="module" src="https://unpkg.com/@hey-web-components/monaco-editor"></script>
+<script
+	is:inline
+	type="module"
+	src="https://unpkg.com/@hey-web-components/monaco-editor"></script>
 
 <hey-monaco-editor lang="javascript"></hey-monaco-editor>
 
 <script>
-  import { codeAtom } from "@/lib/code.store";
+	import { codeAtom } from "@lib/code.store";
 
-  const $editor = document.querySelector('hey-monaco-editor');
+	const $editor = document.querySelector("hey-monaco-editor");
 
-  if ($editor) {
-    // @ts-ignore
-    $editor.options = {
-      theme: "vs-dark",
-      readOnly: false,
-      minimap: {
-        enabled: false
-      }
-    }
-    // @ts-ignore
-    $editor.language = 'javascript';
+	if ($editor) {
+		// @ts-ignore
+		$editor.options = {
+			theme: "vs-dark",
+			readOnly: false,
+			minimap: {
+				enabled: false,
+			},
+		};
+		// @ts-ignore
+		$editor.language = "javascript";
 
-    codeAtom.subscribe((value) => {
-    // @ts-ignore
-      $editor.value = value;
-    })
-  }
+		codeAtom.subscribe((value) => {
+			// @ts-ignore
+			$editor.value = value;
+		});
+	}
 </script>

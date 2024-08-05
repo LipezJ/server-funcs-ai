@@ -1,62 +1,65 @@
 ---
-import Content from '@/layouts/Content.astro'
+import Content from "@layouts/Content.astro";
 
 export interface Props {
-  id: string;
+	id: string;
 }
 ---
 
 <section id="modal-container" class="fixed bottom-0 w-full z-10 mt-auto">
-  <div id={Astro.props.id} class="modal mx-auto max-w-2xl self-end">
-    <Content style="fit">
-      <div class="max-w-2xl mx-auto px-2 md:px-10 pb-4">
-        <slot/>
-      </div>
-    </Content>
-  </div>
+	<div id={Astro.props.id} class="modal mx-auto max-w-2xl self-end">
+		<Content style="fit">
+			<div class="max-w-2xl mx-auto px-2 md:px-10 pb-4">
+				<slot />
+			</div>
+		</Content>
+	</div>
 </section>
 
 <style>
-  .modal {
-    transition: transform 0.15s ease-out;
-    transform: translateY(100%);
-  }
+	.modal {
+		transition: transform 0.15s ease-out;
+		transform: translateY(100%);
+	}
 
-  .modal.show {
-    transform: translateY(0);
-  }
+	.modal.show {
+		transform: translateY(0);
+	}
 
-  .modal.hide {
-    transform: translateY(100%);
-  }
+	.modal.hide {
+		transform: translateY(100%);
+	}
 
-  #modal-container.hide {
-    display: none;
-  }
+	#modal-container.hide {
+		display: none;
+	}
 </style>
 
-<script is:inline define:vars={{id: Astro.props.id}}>
-  const $modal = document.getElementById(id)
-  const $modalContainer = document.getElementById('modal-container')
+<script is:inline define:vars={{ id: Astro.props.id }}>
+	const $modal = document.getElementById(id);
+	const $modalContainer = document.getElementById("modal-container");
 
-  $modal.showModal = () => {
-    $modalContainer.classList.remove("hide");
-    $modal?.classList.remove("hide");
-    $modal?.classList.add("show");
-  }
+	$modal.showModal = () => {
+		$modalContainer.classList.remove("hide");
+		$modal?.classList.remove("hide");
+		$modal?.classList.add("show");
+	};
 
-  $modal.hideModal = () => {
-    $modal.hideCallBack && $modal.hideCallBack();
-    $modal?.classList.add("hide");
-    $modal?.classList.remove("show");
-    setTimeout(() => {
-      $modalContainer.classList.add("hide");
-    }, 150);
-  }
+	$modal.hideModal = () => {
+		$modal.hideCallBack && $modal.hideCallBack();
+		$modal?.classList.add("hide");
+		$modal?.classList.remove("show");
+		setTimeout(() => {
+			$modalContainer.classList.add("hide");
+		}, 150);
+	};
 
-  window.addEventListener('click', (event) => {   
-    if (!document.getElementById('clickbox')?.contains($modal) && !$modal?.contains(event.target)) {
-      $modal.hideModal();
-    }
-  });
+	window.addEventListener("click", (event) => {
+		if (
+			!document.getElementById("clickbox")?.contains($modal) &&
+			!$modal?.contains(event.target)
+		) {
+			$modal.hideModal();
+		}
+	});
 </script>

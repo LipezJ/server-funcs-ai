@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Settings, type SettingsType } from "./settings";
-import { apiKey } from "./settings.store";
+import { Settings, type SettingsType } from "@lib/settings";
+import { apiKey } from "@lib/settings.store";
 import { useAssistant, useChat } from "ai/react";
 import { streamText, type CoreMessage } from "ai";
 import { ollama } from "ollama-ai-provider";
-import { AI_SYSTEM_PROMPT } from "./const";
+import { AI_SYSTEM_PROMPT } from "@lib/const";
 
 function useOllamaChat() {
   const [ messages, setMessages ] = useState<CoreMessage[]>([]);

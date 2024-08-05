@@ -1,27 +1,32 @@
 ---
-import Button from '@/components/ui/Button.astro';
-import Input from '@/components/ui/Input.astro';
+import Button from "@components/ui/Button.astro";
+import Input from "@components/ui/Input.astro";
 ---
 
 <section class="flex flex-col gap-1 h-full">
-  <iframe id="test-frame" src="https://jsonplaceholder.typicode.com/todos/1" class="w-full h-full row-span-8 rounded-sm"></iframe>
-  <form id="test-form" class="flex items-end mr-1 w-full">
-    <Input name="test-url" placeholder="URL to test" />
-    <Button style="pri" class="p-2 h-fit">Test</Button>
-  </form>
+	<iframe
+		id="test-frame"
+		src="https://jsonplaceholder.typicode.com/todos/1"
+		class="w-full h-full row-span-8 rounded-sm"></iframe>
+	<form id="test-form" class="flex items-end mr-1 w-full">
+		<Input name="test-url" placeholder="URL to test" />
+		<Button style="pri" class="p-2 h-fit">Test</Button>
+	</form>
 </section>
 
 <script>
-  const $form  = document.querySelector('#test-form');
+	const $form = document.querySelector("#test-form");
 
-  $form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!e.target) return;
+	$form?.addEventListener("submit", (e) => {
+		e.preventDefault();
+		if (!e.target) return;
 
-    const form = new FormData(e.target as HTMLFormElement);
-    const url = form.get('test-url') as string;
+		const form = new FormData(e.target as HTMLFormElement);
+		const url = form.get("test-url") as string;
 
-    const $frame = document.querySelector("#test-frame") as HTMLIFrameElement;
-    $frame.src = url;
-  });
+		const $frame = document.querySelector(
+			"#test-frame",
+		) as HTMLIFrameElement;
+		$frame.src = url;
+	});
 </script>

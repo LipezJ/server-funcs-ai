@@ -1,4 +1,4 @@
-import { codeAtom, Mode } from "@/lib/code.store";
+import { codeAtom, Mode } from "@lib/code.store";
 import type { Message } from "ai";
 import { useCallback } from "react";
 import Markdown from "react-markdown";

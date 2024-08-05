@@ -1,5 +1,5 @@
 import { atom } from 'nanostores'
-import { DEFAULT_CODE } from './const'
+import { DEFAULT_CODE } from '@lib/const'
 
 export class Mode {
   static modes = [ 'editor', 'chat' ]

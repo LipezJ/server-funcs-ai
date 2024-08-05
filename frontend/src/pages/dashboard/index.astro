@@ -1,28 +1,28 @@
 ---
-import { fade } from 'astro:transitions'
-import FunctionCard from '@/components/dashboard/FunctionCard.astro'
-import DashboardLayout from '@/layouts/DashboardLayout.astro'
+import { fade } from "astro:transitions";
+import FunctionCard from "@components/dashboard/FunctionCard.astro";
+import DashboardLayout from "@layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout>
-  <section 
-    transition:name="content-slider" 
-    transition:animate={fade({ duration: '0.05s' })} 
-    class="grid w-full md:max-w-7xl px-4 md:px-8 pb-12 mx-auto"
-  >
-    <h1 class="text-3xl font-bold my-6">
-      Functions
-    </h1>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 gap-x-6 row-span-11 px-2 overflow-auto">
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-      <FunctionCard name="hello" />
-    </div>
-  </section>
+	<section
+		transition:name="content-slider"
+		transition:animate={fade({ duration: "0.05s" })}
+		class="grid w-full md:max-w-7xl px-4 md:px-8 pb-12 mx-auto"
+	>
+		<h1 class="text-3xl font-bold my-6">Functions</h1>
+		<div
+			class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 gap-x-6 row-span-11 px-2 overflow-auto"
+		>
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+			<FunctionCard name="hello" />
+		</div>
+	</section>
 </DashboardLayout>
