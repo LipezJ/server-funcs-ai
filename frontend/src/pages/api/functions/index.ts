@@ -10,19 +10,7 @@ interface FunctionData {
   type?: string;
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const session = await getSession(request);
-
-  if (!session) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  const userId = session.user?.id;
-
-  if (!userId) {
-    return new Response('Invalid User', { status: 401 });
-  }
-
+export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const query = new URL(request.url).searchParams;
     const funcId = query.get('id');
@@ -33,7 +21,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     const result = await db.select()
       .from(functions)
-      .where(and(eq(functions.user_id, userId), eq(functions.func_id, funcId)))
+      .where(and(eq(functions.user_id, locals.user_id), eq(functions.func_id, funcId)))
       .run();
 
     const func = result.rows[0];
@@ -47,26 +35,14 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-export const POST: APIRoute = async ({ request }) => {
-  const body = await request.json() as FunctionData;
-
-  const session = await getSession(request);
-
-  if (!session) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  const userId = session.user?.id;
-
-  if (!userId) {
-    return new Response('Invalid User', { status: 401 });
-  }
-
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    const body = await request.json() as FunctionData;
+
     const result = await db.insert(functions)
       .values({
         func_id: body.func_id ?? Math.random().toString(36).substring(7),
-        user_id: userId,
+        user_id: locals.user_id,
         code: body.code,
         type: body.type
       })
@@ -83,19 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
   
 };
 
-export const PATCH: APIRoute = async ({ request }) => {
-  const session = await getSession(request);
-
-  if (!session) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  const userId = session.user?.id;
-
-  if (!userId) {
-    return new Response('Invalid User', { status: 401 });
-  }
-
+export const PATCH: APIRoute = async ({ request, locals }) => {
   try {
     const body = await request.json() as FunctionData;
     const funcId = body.func_id;
@@ -123,7 +87,7 @@ export const PATCH: APIRoute = async ({ request }) => {
 
     const result = await db.update(functions)
         .set(data)
-        .where(and(eq(functions.user_id, userId), eq(functions.func_id, funcId)))
+        .where(and(eq(functions.user_id, locals.user_id), eq(functions.func_id, funcId)))
         .run();
 
     if (result.rowsAffected === 0) {
@@ -136,19 +100,7 @@ export const PATCH: APIRoute = async ({ request }) => {
   }
 };
 
-export const DELETE: APIRoute = async ({ request }) => {
-  const session = await getSession(request);
-
-  if (!session) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  const userId = session.user?.id;
-
-  if (!userId) {
-    return new Response('Invalid User', { status: 401 });
-  }
-  
+export const DELETE: APIRoute = async ({ request, locals }) => {
   try {
     const query = new URL(request.url).searchParams;
     const funcId = query.get('id');
@@ -158,7 +110,7 @@ export const DELETE: APIRoute = async ({ request }) => {
     }
 
     const result = await db.delete(functions)
-      .where(and(eq(functions.user_id, userId), eq(functions.func_id, funcId)))
+      .where(and(eq(functions.user_id, locals.user_id), eq(functions.func_id, funcId)))
       .run();
 
     if (result.rowsAffected === 0) {
