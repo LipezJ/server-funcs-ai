@@ -12,5 +12,8 @@ export default defineConfig({
   integrations: [tailwind(), react(), auth()],
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  experimental: {
+    serverIslands: true
+  }
 });

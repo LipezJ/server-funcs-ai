@@ -15,6 +15,9 @@
       "@db/*": [
         "src/db/*"
       ],
+      "@api/*": [
+        "src/pages/api/*"
+      ]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

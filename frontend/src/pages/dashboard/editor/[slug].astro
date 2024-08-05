@@ -4,6 +4,8 @@ import Button from "@components/ui/Button.astro";
 import CodeEditor from "@components/dashboard/Editor.astro";
 import CodeForm from "@components/dashboard/CodeForm.astro";
 import ApiKeyForm from "@components/dashboard/ApiKeyForm.astro";
+
+const slug = Astro.params.slug;
 ---
 
 <DashboardLayout class="flex flex-col h-full" style="fit">
@@ -16,7 +18,7 @@ import ApiKeyForm from "@components/dashboard/ApiKeyForm.astro";
 			>
 				<h1>Function</h1>
 				<div>
-					<Button style="pri" class="py-1 px-2"> Deploy </Button>
+					<Button style="pri" class="py-1 px-2">Deploy</Button>
 				</div>
 			</header>
 			<div
