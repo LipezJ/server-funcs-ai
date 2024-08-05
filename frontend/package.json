@@ -16,9 +16,12 @@
     "@astrojs/react": "^3.6.1",
     "@astrojs/tailwind": "^5.1.0",
     "@auth/core": "^0.32.0",
+    "@auth/drizzle-adapter": "^1.4.2",
+    "@libsql/client": "^0.8.1",
     "ai": "^3.2.37",
     "astro": "^4.11.6",
     "auth-astro": "^4.1.2",
+    "drizzle-orm": "^0.32.2",
     "highlight.js": "^11.10.0",
     "nanostores": "^0.10.3",
     "ollama-ai-provider": "^0.10.0",
@@ -36,6 +39,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/showdown": "^2.0.6",
+    "drizzle-kit": "^0.23.2",
     "typescript": "^5.5.3"
   }
 }

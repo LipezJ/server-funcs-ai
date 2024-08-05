@@ -12,6 +12,9 @@
       "@layouts/*": [
         "src/layouts/*"
       ],
+      "@db/*": [
+        "src/db/*"
+      ],
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
