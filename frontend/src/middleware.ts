@@ -20,6 +20,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     context.locals.user_id = userId;
   } else if (path.startsWith('/dashboard')) {
     const session = await getSession(context.request);
+
+    context.locals.avatar = session?.user?.image;
     
     if (!session) {
       return context.redirect('/?error=unauthorized');

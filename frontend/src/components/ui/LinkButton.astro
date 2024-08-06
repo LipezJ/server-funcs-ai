@@ -4,6 +4,7 @@ export interface Props {
   style: 'pri' | 'sec';
   class?: string;
   reload?: boolean;
+  title?: string;
 }
 
 const styles = {
@@ -16,6 +17,7 @@ const styles = {
 
 <a 
   href={Astro.props.href} 
+  title={Astro.props.title}
   class=`
     inline-flex items-center justify-center 
     ${styles[Astro.props.style]}

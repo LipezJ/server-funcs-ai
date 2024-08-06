@@ -4,6 +4,7 @@ export interface Props {
   id?: string;
   name?: string;
   class?: string;
+  alt?: string;
 }
 
 const styles = {
@@ -17,6 +18,7 @@ const styles = {
 <button 
   id={Astro.props.id}
   name={Astro.props.name}
+  aria-label={Astro.props.alt}
   class=`
     inline-flex items-center justify-center box-border
     ${styles[Astro.props.style]}

@@ -1,3 +1,6 @@
+import Beaker from "@components/icons/Beaker";
+import Gear from "@components/icons/Gear";
+import Play from "@components/icons/Play";
 import Button from "@components/ui/Button";
 import { FunctionContext } from "@lib/dash.hook";
 import { useContext, useState } from "react";
@@ -29,7 +32,9 @@ function TestForm() {
           type="text" 
           className="items-center gap-1 rounded-md border border-paragraph p-2 mr-1 h-fit w-full"
         />
-        <Button type="submit" style="pri" className="p-2 h-fit">Test</Button>
+        <Button title="send test request" type="submit" style="pri" className="p-2 h-full">
+          <Play />
+        </Button>
       </form>
     </>
   )
@@ -62,7 +67,7 @@ function SettingsForm() {
         </select>
       </div>
       <div className="flex justify-end w-full">
-        <Button type="submit" style="pri" className="p-2">
+        <Button title="save settings" type="submit" style="pri" className="p-2">
           Save
         </Button>
       </div>
@@ -73,15 +78,16 @@ function SettingsForm() {
 export default function CodeForm() {
   const [ mode, setMode ] = useState<'test' | 'settings'>('test')
 
-  const toggleMode = () => {
-    setMode(prev => prev === 'test' ? 'settings' : 'test')
-  }
-  
   return (
     <section className="flex flex-col gap-2 h-full">
       <header className="flex gap-2">
-        <Button type="button" style="sec" className="px-2 py-0.5" onClick={toggleMode}>
-          { mode === 'test' ? 'Settings' : 'Test' }
+        <Button type="button" style="sec" title="settings form"
+          className="py-2 px-2" onClick={() => setMode('settings')}>
+          <Gear />
+        </Button>
+        <Button type="button" style="sec" title="test form"
+          className="py-2 px-2" onClick={() => setMode('test')}>
+          <Beaker />
         </Button>
       </header>
       { mode === 'test' ? <TestForm /> : <SettingsForm /> }

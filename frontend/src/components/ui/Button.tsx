@@ -4,6 +4,7 @@ interface Props {
 	type: 'button' | 'submit' | 'reset';
 	onClick?: () => void;
 	className?: string;
+	title: string;
 }
 
 const styles = {
@@ -22,6 +23,7 @@ export default function Button(props: Props) {
       `}
 			type={props.type}
 			onClick={props.onClick}
+			title={props.title}
 		>
 			{props.children}
 		</button>

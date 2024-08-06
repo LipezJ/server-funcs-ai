@@ -1,5 +1,7 @@
 import Chat from "@components/dashboard/Chat";
 import CodeEditor from "@components/dashboard/CodeEditor";
+import Comment from "@components/icons/Comment";
+import Pencil from "@components/icons/Pencil";
 import Button from "@components/ui/Button";
 import { useEffect, useState } from "react";
 
@@ -22,10 +24,11 @@ export default function Editor() {
             <Button
               type="button"
               style="sec"
-              className="px-4 py-1 text-text bg-sec/20"
+              className="px-4 py-2 text-text bg-sec/20"
               onClick={togleMode}
+              title="open code editor"
             >
-              Editor
+              <Pencil />
             </Button>
           </div>
           <Chat />
@@ -36,10 +39,11 @@ export default function Editor() {
             <Button
               type="button"
               style="sec"
-              className="px-4 py-1 text-text bg-sec/20"
+              className="px-4 py-2 text-text bg-sec/20"
               onClick={togleMode}
+              title="open the ai chat"
             >
-              Chat
+              <Comment />
             </Button>
           </div>
           <CodeEditor />

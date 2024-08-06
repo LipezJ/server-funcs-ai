@@ -1,37 +1,47 @@
 ---
 import LinkButton from "@components/ui/LinkButton.astro";
+
+const avatar = Astro.locals.avatar;
 ---
 
 <header class="flex w-full justify-between items-center py-2 px-10 border-b">
 	<div></div>
 	<div class="flex items-center gap-4">
 		<nav>
-			<LinkButton style="sec" href="/dashboard" class="py-1 px-2 text-sm">
-				Overview
-			</LinkButton>
-			<LinkButton style="sec" href="/docs" class="py-1 text-sec px-4 text-sm">
+			<LinkButton 
+				style="sec" 
+				href="/docs" 
+				class="py-1 text-sec px-4 text-sm"
+				title="go to docs"
+			>
 				Docs
 			</LinkButton>
 			<LinkButton
 				style="sec"
 				href="/dashboard/settings"
 				class="py-1 px-2 text-sm"
+				title="go to settings"
 			>
 				Settings
 			</LinkButton>
 		</nav>
 		<div class="relative size-8 overflow-hidden bg-gray-100 rounded-full">
-			<svg
-				class="absolute size-10 text-gray-400 -left-1"
-				fill="currentColor"
-				viewBox="0 0 20 20"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-					clip-rule="evenodd"></path>
-			</svg>
+			{
+				avatar ? 
+				<img src={avatar} alt="avatar" class="w-full h-full object-cover" />
+				:
+				<svg
+					class="absolute size-10 text-gray-400 -left-1"
+					fill="currentColor"
+					viewBox="0 0 20 20"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+						clip-rule="evenodd"></path>
+				</svg>
+			}
 		</div>
 	</div>
 </header>
