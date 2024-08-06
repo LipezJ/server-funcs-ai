@@ -6,12 +6,13 @@ import Zap from "@components/icons/Zap";
 import Breadcrumb from "./Breadcrumb";
 
 interface Props {
-  func: FunctionData
+  func: FunctionData,
+  backend: string
 }
 
 export default function Dashboard(props: Props) {
 
-  const { state, Context } = useDashboard(props.func)
+  const { state, Context } = useDashboard(props.func, props.backend)
 
   return (
     <Context.Provider value={state}>
@@ -20,7 +21,8 @@ export default function Dashboard(props: Props) {
       >
         <Breadcrumb 
           elements={[
-            { name: 'Functions', href: '/dashboard' }, { name: state.func.func_id, href: '#' }
+            { name: 'Functions', href: '/dashboard' }, 
+            { name: state.func.func_id, href: `${props.backend}?id=${props.func.func_id}` }
           ]} 
         />
         <div>

@@ -14,6 +14,7 @@ interface FunctionContextProps {
   deleteFunction: () => void
   deploy: () => void
   isDeploying: boolean
+  backend: string
 }
 
 const Context = createContext<FunctionContextProps>({
@@ -27,7 +28,8 @@ const Context = createContext<FunctionContextProps>({
   setType: () => { },
   deploy: () => { },
   deleteFunction: () => { },
-  isDeploying: false
+  isDeploying: false,
+  backend: ''
 })
 
 const getFunction = async (id: string) => {
@@ -41,7 +43,7 @@ const getFunction = async (id: string) => {
   return await res.json()
 }
 
-export default function useDashboard(props: FunctionData) {
+export default function useDashboard(props: FunctionData, backend: string) {
   const [func, setFunc] = useState<FunctionData>(props)
   const [ isDeploying, setIsDeploying ] = useState(false)
   const [ upgradable, setUpgradable ] = useState(false)
@@ -94,7 +96,7 @@ export default function useDashboard(props: FunctionData) {
   return { 
     state: {
       func, setCode, setType, upgradable, deleteFunction,
-      deploy, isDeploying: isDeploying
+      deploy, isDeploying: isDeploying, backend
     }, 
     Context 
   }

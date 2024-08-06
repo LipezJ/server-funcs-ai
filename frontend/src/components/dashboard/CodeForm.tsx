@@ -7,7 +7,8 @@ import { FunctionContext } from "@lib/dash.hook";
 import { useContext, useState } from "react";
 
 function TestForm() {
-  const [ url, setUrl ] = useState<string>('https://jsonplaceholder.typicode.com/todos/1')
+  const { backend } = useContext(FunctionContext)
+  const [ url, setUrl ] = useState<string>(backend)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,6 +33,7 @@ function TestForm() {
           placeholder="URL to test"
           type="text" 
           className="items-center gap-1 rounded-md border border-paragraph p-2 mr-1 h-fit w-full"
+          defaultValue={backend}
         />
         <Button title="send test request" type="submit" style="pri" className="p-2 h-full">
           <Play />

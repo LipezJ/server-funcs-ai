@@ -12,6 +12,7 @@ if (!res.ok	) {
 }
 
 const data = await res.json();
+const backend = import.meta.env.BACKEND_URL;
 ---
 
 <DashboardLayout class="flex flex-col h-full" style="fit">
@@ -19,7 +20,7 @@ const data = await res.json();
 		<section
 			class="flex-1 flex flex-col my-1 mx-2 md:mx-10 rounded-md border overflow-hidden h-full"
 		>
-			<Dashboard server:defer client:only="react" func={data} />
+			<Dashboard server:defer client:only="react" func={data} backend={backend} />
 		</section>
 	</div>
 </DashboardLayout>

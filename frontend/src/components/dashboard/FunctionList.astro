@@ -9,6 +9,7 @@ interface Function {
 }
 const response = await GET(Astro);
 const functions: Function[] = await response.json();
+const backend = import.meta.env.BACKEND_URL;
 ---
 
 <NewFunctionForm />
@@ -21,7 +22,7 @@ const functions: Function[] = await response.json();
       <article class="row-span-4 px-4 pt-2 h-full">
         <header class="flex justify-between gap-2 items-end">
           <h1 class="text-sec font-semibold text-xl h-full">
-            <a href="" class="underline">{func.func_id}</a>
+            <a href={`${backend}?id=${func.func_id}`} class="underline">{func.func_id}</a>
           </h1>
           <LinkButton
             style="pri"
