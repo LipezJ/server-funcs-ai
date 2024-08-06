@@ -1,0 +1,28 @@
+---
+import LinkButton from '@components/ui/LinkButton.astro';
+
+export interface Props {
+  link: string;
+  title: string;
+  description: string;
+  image?: string;
+}
+---
+
+<div class="w-full h-full border rounded-lg shadow bg-sec border-sec py-4 px-2">
+  {
+    Astro.props.image && (
+      <img src={Astro.props.image} class="w-full h-fit object-cover rounded-t-lg" alt={Astro.props.title} />
+    )
+  }
+  <div class="p-5 pt-2">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">{Astro.props.title}</h5>
+      <p class="mb-3 font-normal text-gray-400">{Astro.props.description}</p>
+      <LinkButton href={Astro.props.link} style="pri" class="px-4 py-2">
+          See
+          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+          </svg>
+      </LinkButton>
+  </div>
+</div>

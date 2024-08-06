@@ -1,0 +1,65 @@
+---
+import Content from "@layouts/Content.astro";
+import Example from "@components/Example.astro";
+import LinkButton from "@components/ui/LinkButton.astro";
+---
+
+<Content>
+  <section class="pt-10 px-1 md:px-14 pb-20">
+    <h2 class="text-4xl font-extrabold">Features 🦆</h2>
+    <div class="grid grid-rows-6 sm:grid-rows-5 sm:grid-cols-5 gap-2 pt-10 md:px-10 lg:max-h-[90dvh]">
+      <div class="flex justify-center row-span-4 sm:row-span-5 sm:col-span-2">
+        <Example
+          image="/examples/todo.png"
+          link="/examples/todo"
+          title="Simple TODO App with Bootstrap"
+          description="Create and deploy a simple TODO application quickly with the power of AI assistance."
+        />
+      </div>
+      <div class="flex justify-center row-span-1 sm:row-span-2 sm:col-span-3">
+        <Example
+          link="/docs"
+          title="See Our Documentation"
+          description="Learn how to create and deploy serverless functions with AI using our documentation."
+        />
+      </div>
+      <div class="flex justify-center row-span-1 sm:row-span-3 sm:col-span-3">
+        <Example
+          image="/examples/dash.png"
+          link="/examples/dashboard"
+          title="Interactive Dashboard"
+          description=""
+        />
+      </div>
+    </div>
+    <section class="mt-28">
+      <div class="flex flex-col justify-center py-8 lg:py-16 mx-auto max-w-4xl px-4">
+        <h2 class="mb-8 lg:mb-16 text-4xl font-extrabold tracking-tight text-pretty leading-tight text-center text-black md:text-5xl">
+          ✨ Master V8 Isolate Javascript Engine for Powerful Applications🔨
+        </h2>
+        <div class="flex flex-col bg-sec rounded-md w-fit mx-auto px-10 pb-4">
+          <h3 class="text-2xl font-bold text-center text-white mt-4 mb-6">Key Features</h3>
+          <ul class="space-y-4 text-left text-paragraph 0 w-fit self-center">
+            <li class="flex items-center text-lg space-x-3">
+              <svg class="flex-shrink-0 w-5 h-5 text-text" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>High-performance JavaScript execution</span>
+            </li>
+            <li class="flex items-center text-lg space-x-3">
+              <svg class="flex-shrink-0 w-5 h-5 text-text" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Isolated environments for secure code execution</span>
+            </li>
+            <li class="flex items-center text-lg space-x-3">
+              <svg class="flex-shrink-0 w-5 h-5 text-text" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Efficient memory management for large-scale functions</span>
+            </li>
+          </ul>
+          <div class="mt-8 flex justify-center">
+            <LinkButton href="/docs" style="pri" class="px-6 py-2 text-lg">
+              Learn more
+            </LinkButton>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</Content>

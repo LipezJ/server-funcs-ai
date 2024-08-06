@@ -1,6 +1,6 @@
 import { FunctionContext } from '@lib/dash.hook';
 import Editor, { useMonaco } from '@monaco-editor/react';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 
 export default function CodeEditor() {
   const { func, setCode } = useContext(FunctionContext)
