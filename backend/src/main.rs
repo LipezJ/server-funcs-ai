@@ -2,7 +2,7 @@ mod utils;
 mod routes;
 mod runner;
 
-use std::sync::Arc;
+use std::{net::SocketAddr, sync::Arc};
 
 use axum::{routing, Router};
 use libsql::Database;
@@ -30,6 +30,14 @@ async fn main() {
 		.route("/runner", routing::post(routes::runner_post))
 		.with_state(shared_app_state);
 
-	let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
+	let port = std::env::var("PORT").unwrap_or("8080".to_string());
+	let port = port.parse::<u16>().unwrap();
+
+	serve(app, port).await;
+}
+
+async fn serve(app: Router, port: u16) {
+	let addr = SocketAddr::from(([127, 0, 0, 1], port));
+	let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
 	axum::serve(listener, app).await.unwrap();
 }
