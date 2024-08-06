@@ -34,6 +34,7 @@ async fn main() {
 	let port = std::env::var("PORT").unwrap_or("8080".to_string());
 	let port = port.parse::<u16>().unwrap();
 
+	println!("Listening on port {}", port);
 	serve(app, port).await;
 }
 
