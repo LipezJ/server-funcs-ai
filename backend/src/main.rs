@@ -3,7 +3,7 @@ mod routes;
 mod runner;
 
 use std::{net::SocketAddr, sync::Arc};
-
+use dotenv::dotenv;
 use axum::{routing, Router};
 use libsql::Database;
 use utils::create_db;
@@ -18,6 +18,7 @@ struct AppState {
 
 #[tokio::main]
 async fn main() {
+	dotenv().ok();
 	runner::init_ejecutor();
 	tracing_subscriber::fmt::init();
 
