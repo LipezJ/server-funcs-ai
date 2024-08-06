@@ -16,8 +16,6 @@ WORKDIR /home/appuser
 
 COPY --from=builder /usr/src/app/target/release/v8-function-runner .
 
-COPY --from=builder /usr/src/app/.env .
-
 RUN chown -R appuser:appuser /home/appuser
 
 USER appuser
