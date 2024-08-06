@@ -7,6 +7,7 @@ export interface Props {
 	description: string;
 	notice?: string;
 	action: string;
+	class?: string;
 }
 ---
 
@@ -23,7 +24,7 @@ export interface Props {
 		<p class="text-paragraph">
 			{Astro.props.description}
 		</p>
-		<div class="py-4 px-2">
+		<div class=`py-4 px-2 ${Astro.props.class}`>
 			<slot />
 			{
 				Astro.props.notice && (

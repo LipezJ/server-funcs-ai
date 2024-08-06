@@ -38,16 +38,17 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 };
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request, locals, redirect }) => {
   try {
-    const body = await request.json() as FunctionData;
+    const form = await request.formData();
+    const funcId = form.get('func_id')?.toString() ?? Math.random().toString(36).substring(7);
 
     const result = await db.insert(functions)
       .values({
-        func_id: body.func_id ?? Math.random().toString(36).substring(7),
+        func_id: funcId,
         user_id: locals.user_id,
-        code: body.code,
-        type: body.type
+        code: form.get('code')?.toString(),
+        type: form.get('type')?.toString()
       })
       .run();
 
@@ -55,11 +56,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response('Not Found', { status: 404 });
     }
 
-    return new Response(undefined, { status: 200 });
+    return new Response(JSON.stringify({ func_id: funcId }), { status: 200 });
   } catch {
     return new Response('Bad Request', { status: 400 });
   }
-  
 };
 
 export const PATCH: APIRoute = async ({ request, locals }) => {

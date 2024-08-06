@@ -1,0 +1,64 @@
+---
+import Modal from "@components/ui/Modal.astro";
+import SettingCard from "@components/dashboard/SettingCard.astro";
+import Input from "@components/ui/Input.astro";
+---
+<button
+  id="modal"
+  type="button"
+  title="Create a new function"
+  class="flex justify-center items-center justify-self-center max-w-xl min-w-2xl w-full min-h-40
+  text-start bg-main/5 py-2 border-2 border-dashed border-paragraph/50 rounded-md"
+>
+  <svg class="text-paragraph" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M5 12h14m-7 7V5"/>
+  </svg>
+</button>
+
+<Modal id="new-function-modal">
+  <SettingCard
+    id="new-function"
+    title="Create a new function"
+    description="Create a new function to start using the assistant"
+    action="/api/functions"
+    class="grid gap-4"
+  >
+    <Input name="func_id" placeholder="function name (is not required)" />
+    <select
+      name="type"
+      class="w-full p-2 border border-paragraph rounded-md"
+      default-value="json"
+    >
+      <option value="json">json</option>
+      <option value="html">html</option>
+    </select>
+  </SettingCard>
+</Modal>
+
+<script>
+  const $modal = document.getElementById("new-function-modal");
+  const $button = document.querySelector("button");
+
+  const $form = $modal?.querySelector("form");
+
+  $form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData($form);
+    const response = await fetch($form.action, {
+      method: $form.method,
+      body: formData,
+    });
+    if (response.ok) {
+      // @ts-ignore
+      $modal.hideModal();
+
+      const data = await response.json();
+      window.location.href = `/dashboard/editor?id=${data.func_id}`;
+    }
+  });
+
+  $button?.addEventListener("click", () => {
+    // @ts-ignore
+    $modal.showModal();
+  });
+</script>

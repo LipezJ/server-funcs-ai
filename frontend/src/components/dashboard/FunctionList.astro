@@ -1,5 +1,6 @@
 ---
 import LinkButton from '@components/ui/LinkButton.astro';
+import NewFunctionForm from '@components/dashboard/NewFunctionForm.astro';
 import { GET } from '../../pages/api/functions/list.ts'
 
 interface Function {
@@ -10,6 +11,7 @@ const response = await GET(Astro);
 const functions: Function[] = await response.json();
 ---
 
+<NewFunctionForm />
 {
   functions.map((func: Function) => (
     <section

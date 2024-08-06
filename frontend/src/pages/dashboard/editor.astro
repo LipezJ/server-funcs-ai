@@ -7,7 +7,7 @@ import { GET } from "@api/functions";
 
 const res = await GET(Astro);
 
-if (!res.ok) {
+if (!res.ok	) {
 	return Astro.redirect("/dashboard");
 }
 
@@ -19,7 +19,7 @@ const data = await res.json();
 		<section
 			class="flex-1 flex flex-col my-1 mx-2 md:mx-10 rounded-md border overflow-hidden h-full"
 		>
-			<Dashboard client:only="react" func={data} />
+			<Dashboard server:defer client:only="react" func={data} />
 		</section>
 	</div>
 </DashboardLayout>

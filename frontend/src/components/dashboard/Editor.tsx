@@ -1,6 +1,6 @@
 import Chat from "@components/dashboard/Chat";
 import CodeEditor from "@components/dashboard/CodeEditor";
-import Comment from "@components/icons/Comment";
+// import Comment from "@components/icons/Comment";
 import Pencil from "@components/icons/Pencil";
 import Button from "@components/ui/Button";
 import { useEffect, useState } from "react";
@@ -43,7 +43,8 @@ export default function Editor() {
               onClick={togleMode}
               title="open the ai chat"
             >
-              <Comment />
+              {/* <Comment /> */}
+              hola
             </Button>
           </div>
           <CodeEditor />

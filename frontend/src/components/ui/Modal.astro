@@ -6,7 +6,7 @@ export interface Props {
 }
 ---
 
-<section id="modal-container" class="fixed bottom-0 w-full z-10 mt-auto">
+<section id="modal-container" class="fixed bottom-0 left-0 w-full max-h-[80dvh] z-10 mt-auto">
 	<div id={Astro.props.id} class="modal mx-auto max-w-2xl self-end">
 		<Content style="fit">
 			<div class="max-w-2xl mx-auto px-2 md:px-10 pb-4">
@@ -18,7 +18,7 @@ export interface Props {
 
 <style>
 	.modal {
-		transition: transform 0.15s ease-out;
+		transition: transform 0.1s ease-out;
 		transform: translateY(100%);
 	}
 
@@ -55,9 +55,11 @@ export interface Props {
 	};
 
 	window.addEventListener("click", (event) => {
+		const $target = event.target;
+
 		if (
 			!document.getElementById("clickbox")?.contains($modal) &&
-			!$modal?.contains(event.target)
+			!$modal?.contains($target) && !$target.id.includes("modal")
 		) {
 			$modal.hideModal();
 		}
