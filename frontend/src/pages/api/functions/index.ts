@@ -23,6 +23,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
       .where(and(eq(functions.user_id, locals.user_id), eq(functions.func_id, funcId)))
       .run();
 
+    if (result.rowsAffected === 0) {
+      return new Response('Not Found', { status: 404 });
+    }
+
     const func = result.rows[0];
 
     return new Response(
@@ -101,8 +105,8 @@ export const PATCH: APIRoute = async ({ request, locals }) => {
 
 export const DELETE: APIRoute = async ({ request, locals }) => {
   try {
-    const query = new URL(request.url).searchParams;
-    const funcId = query.get('id');
+    const body = await request.json();
+    const funcId = body.id as string;
 
     if (!funcId) {
       return new Response('Bad Request', { status: 400 });
