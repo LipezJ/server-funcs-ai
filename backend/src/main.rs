@@ -36,6 +36,7 @@ async fn main() {
 
 	println!("Listening on port {}", port);
 	serve(app, port).await;
+	println!("Server stopped");
 }
 
 async fn serve(app: Router, port: u16) {
