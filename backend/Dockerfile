@@ -22,7 +22,7 @@ RUN chown -R appuser:appuser /home/appuser
 
 USER appuser
 
-EXPOSE 8080
-ENV PORT 8080
+EXPOSE 3000
+ENV PORT 3000
 
 ENTRYPOINT ["./v8-function-runner"]
