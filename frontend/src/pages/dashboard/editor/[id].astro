@@ -19,4 +19,18 @@ if (!funcId) {
 	</div>
 </DashboardLayout>
 
+<script>
+	import { Settings } from "@lib/settings";
+
+	const settings = Settings.settings;
+
+	window.addEventListener("exit", () => {
+		if (settings.askBeforeLeaving) {
+			if (!confirm("Are you sure you want to leave?")) {
+				return;
+			}
+		}
+	});
+</script>
+
 <ApiKeyForm />

@@ -19,7 +19,7 @@ function useOllamaChat() {
 		e.preventDefault();
 		setStatus('in_progress');
 
-		const ollamaModel = Settings.getOllamaModel();
+		const ollamaModel = Settings.getKey('ollamaModel');
 
 		const result = await streamText({
 			model: ollama(ollamaModel),
@@ -48,7 +48,7 @@ export async function ollamaFecth(
 	const messages = body.messages;
 
 	const result = await streamText({
-		model: ollama(Settings.getOllamaModel()),
+		model: ollama(Settings.getKey('ollamaModel')),
 		system: AI_SYSTEM_PROMPT,
 		messages: messages,
 	});
@@ -57,7 +57,7 @@ export async function ollamaFecth(
 }
 
 export function useFunctionChat() {
-	const providerType = Settings.getType();
+	const providerType = Settings.getKey('type');
 
 	if (providerType === 'openai') {
 		return useAssistant({

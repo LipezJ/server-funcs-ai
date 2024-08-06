@@ -37,7 +37,7 @@ import Modal from "@components/ui/Modal.astro";
 	});
 
 	window.addEventListener("load", () => {
-		if (Settings.getType() === "openai") {
+		if (Settings.getKey("type") === "openai") {
 			// @ts-ignore
 			$modal.showModal();
 		}

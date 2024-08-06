@@ -1,36 +1,96 @@
 ---
+import Breadcrumb from "@components/dashboard/Breadcrumb";
 import SettingCard from "@components/dashboard/SettingCard.astro";
 import Input from "@components/ui/Input.astro";
 import DashboardLayout from "@layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout>
-	<section class="max-w-3xl mx-auto px-4 pb-12">
-		<h1 class="text-3xl font-bold mt-6">Settings</h1>
-		<div class="grid gap-6 px-2 pt-6">
+	<div class="max-w-4xl text-3xl font-bold mt-4 mx-auto md:mt-6 mb-4 px-4 md:px-0">
+		<Breadcrumb 
+			client:load  
+			elements={[
+				{ href: "/dashboard", name: "Dashboard" },
+				{ href: "/dashboard/settings", name: "Settings" }
+			]}	
+		/>
+	</div>
+	<section class="max-w-3xl mx-auto pb-12">
+		<h2 class="text-2xl font-bold ml-6">AI Settings</h2>
+		<div class="grid gap-6 px-6 pt-6">
 			<SettingCard
-				id="ia-type"
+				id="type"
 				title="IA type"
 				description="select if you want to use an ollama or openai"
 				notice="if you select OpenAI, you need to set your openai token every time you go to the editor (this is for security reasons)"
 				action="/api/profile"
 			>
 				<select
-					name="ia-type"
-					class="w-full p-2 border border-paragraph rounded-md"
+					name="setting"
+					class="setting-field w-full p-2 border border-paragraph rounded-md"
 				>
 					<option value="ollama">Ollama</option>
 					<option value="openai">OpenAI</option>
 				</select>
 			</SettingCard>
 			<SettingCard
-				id="ia-model"
+				id="ollamaModel"
 				title="Ollama AI name"
 				description="update your Ollama AI settings"
 				notice="this is obligatory if you want to use Ollama, you can change the model you want to use"
 				action="/api/profile"
 			>
-				<Input name="ia-model" placeholder="AI Name" />
+				<Input name="setting" class="setting-field" />
+			</SettingCard>
+		</div>
+	</section>
+	<section class="max-w-3xl mx-auto pb-12">
+		<h2 class="text-2xl font-bold ml-6">Preferences Settings</h2>
+		<div class="grid gap-6 px-6 pt-6">
+			<SettingCard
+				id="defaultEditorMode"
+				title="Default editor mode"
+				description="select the default editor mode"
+				notice="this will be the default editor mode when you open the function editor"
+				action="/api/profile"
+			>
+				<select
+					name="setting"
+					class="setting-field w-full p-2 border border-paragraph rounded-md"
+				>
+					<option value="chat">Chat</option>
+					<option value="editor">Editor</option>
+				</select>
+			</SettingCard>
+			<SettingCard
+				id="askBeforeLeaving"
+				title="Ask before exit"
+				description="select if you want to ask before exit the editor"
+				notice="this will ask you before you leave the editor"
+				action="/api/profile"
+			>
+				<select
+					name="setting"
+					class="setting-field bool-field w-full p-2 border border-paragraph rounded-md"
+				>
+					<option value="true">Yes</option>
+					<option value="false">No</option>
+				</select>
+			</SettingCard>
+			<SettingCard
+				id="askToDeploy"
+				title="Ask before deploy"
+				description="select if you want to ask before deploy the function"
+				notice="this will ask you before you deploy the function"
+				action="/api/profile"
+			>
+				<select
+					name="setting"
+					class="setting-field bool-field w-full p-2 border border-paragraph rounded-md"
+				>
+					<option value="true">Yes</option>
+					<option value="false">No</option>
+				</select>
 			</SettingCard>
 		</div>
 	</section>
@@ -39,35 +99,29 @@ import DashboardLayout from "@layouts/DashboardLayout.astro";
 <script>
 	import { Settings } from "@lib/settings";
 
-	const $formIAType = document.getElementById("ia-type");
-	const $formIAModel = document.getElementById("ia-model");
+	const $forms = document.querySelectorAll("form");
 
-	const $formIAModelInput = $formIAModel?.querySelector("input");
-	if ($formIAModelInput) {
-		$formIAModelInput.value = Settings.getOllamaModel();
-	}
-	const $formIATypeSelect = $formIAType?.querySelector("select");
-	if ($formIATypeSelect) {
-		$formIATypeSelect.value = Settings.getType();
-	}
+	$forms.forEach(($form) => {
+		const $field = $form.querySelector('.setting-field') as HTMLInputElement;
 
-	const formParse = (e: SubmitEvent) => {
-		const $form = e.target as HTMLFormElement;
-		const formData = new FormData($form);
-		return Object.fromEntries(formData);
-	};
+		const value = Settings.settings[$form.id as keyof typeof Settings.settings];
 
-	$formIAType?.addEventListener("submit", async (e) => {
-		e.preventDefault();
-		const data = formParse(e);
-		const type = data["ia-type"].toString();
-		Settings.setType(type);
-	});
+		if (typeof value === "boolean") {
+			$field.value = value ? "true" : "false";
+		} else {
+			$field.value = value;
+		}
 
-	$formIAModel?.addEventListener("submit", async (e) => {
-		e.preventDefault();
-		const data = formParse(e);
-		const model = data["ia-model"].toString();
-		Settings.setOllamaModel(model);
+		$form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			const fieldId = $form.id as keyof typeof Settings.settings;
+
+			if ($field.classList.contains("bool-field")) {
+				const value = $field.value === "true";
+				Settings.saveKey(fieldId, value);
+			} else {
+				Settings.saveKey(fieldId, $field.value);
+			}
+		});
 	});
 </script>

@@ -4,6 +4,7 @@ import CodeForm from "@components/dashboard/CodeForm";
 import useDashboard from "@lib/dash.hook";
 import Zap from "@components/icons/Zap";
 import ArrowRight from "@components/icons/ArrowRight";
+import Breadcrumb from "./Breadcrumb";
 
 interface Props {
   func_id: string
@@ -18,25 +19,11 @@ export default function Dashboard(props: Props) {
       <header
         className="flex justify-between items-center gap-4 py-2 px-2 md:px-6 text-lg font-semibold border-b"
       >
-        <nav className="flex" aria-label="Breadcrumb">
-          <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-            <li>
-              <div className="flex items-center">
-                <a href="/dashboard" className="ms-1 text-base font-medium md:ms-2 underline" title="return to functions list">
-                  Functions
-                </a>
-              </div>
-            </li>
-            <li aria-current="page">
-              <div className="flex items-center">
-                <ArrowRight />
-                <span className="ms-1 text-base font-medium md:ms-2 underline" title="function link">
-                  {state.func.func_id}
-                </span>
-              </div>
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumb 
+          elements={[
+            { name: 'Functions', href: '/dashboard' }, { name: state.func.func_id, href: '#' }
+          ]} 
+        />
         <div>
           <Button
             type="button"
