@@ -1,5 +1,28 @@
-FROM debian:bookworm-slim AS runtime
+FROM rustlang/rust:nightly as builder
 
-COPY ./target/release/v8-test /usr/local/bin
+WORKDIR /usr/src/app
 
-ENTRYPOINT ["/usr/local/bin/v8-test"]
+COPY . .
+
+RUN rustup default nightly
+
+RUN cargo build --release
+
+FROM debian:buster-slim
+
+RUN useradd -m appuser
+
+WORKDIR /home/appuser
+
+COPY --from=builder /usr/src/app/target/release/v8-function-runner .
+
+COPY --from=builder /usr/src/app/.env .
+
+RUN chown -R appuser:appuser /home/appuser
+
+USER appuser
+
+EXPOSE 3000
+ENV PORT 3000
+
+CMD ["./v8-function-runner"]
