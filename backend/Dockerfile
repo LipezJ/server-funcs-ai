@@ -1,28 +1,5 @@
-FROM rustlang/rust:nightly as builder
+FROM debian:bookworm-slim AS runtime
 
-WORKDIR /usr/src/app
+COPY ./target/release/v8-test /usr/local/bin
 
-COPY . .
-
-RUN rustup default nightly
-
-RUN cargo build --release
-
-FROM ubuntu:22.04
-
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
-
-RUN useradd -m appuser
-
-WORKDIR /home/appuser
-
-COPY --from=builder /usr/src/app/target/release/v8-function-runner .
-
-RUN chown -R appuser:appuser /home/appuser
-
-USER appuser
-
-EXPOSE 3000
-ENV PORT 3000
-
-ENTRYPOINT ["./v8-function-runner"]
+ENTRYPOINT ["/usr/local/bin/v8-test"]
