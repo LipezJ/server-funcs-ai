@@ -8,7 +8,7 @@ RUN rustup default nightly
 
 RUN cargo build --release
 
-FROM debian:buster-slim
+FROM ubuntu:22.04
 
 RUN useradd -m appuser
 
