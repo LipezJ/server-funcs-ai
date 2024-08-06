@@ -1,4 +1,4 @@
-import { codeAtom, Mode } from '@lib/code.store';
+import { funcStore, Mode } from '@lib/code.store';
 import type { Message } from 'ai';
 import { useCallback } from 'react';
 import Markdown from 'react-markdown';
@@ -12,7 +12,7 @@ export default function ChatMessage({ role, content, data }: Message) {
 
 			const code = parent?.querySelector('code')?.textContent;
 
-			codeAtom.set(code ?? '');
+			funcStore.setKey('code', code || '');
 			Mode.toggle();
 		},
 		[],

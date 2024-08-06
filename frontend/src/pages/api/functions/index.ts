@@ -1,7 +1,6 @@
 import { db } from '@db/db';
 import { functions } from '@db/schemas';
 import type { APIRoute } from 'astro';
-import { getSession } from 'auth-astro/server';
 import { and, eq } from 'drizzle-orm';
 
 interface FunctionData {
@@ -30,7 +29,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       JSON.stringify(func), 
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-  } catch  {
+  } catch (e) {
     return new Response('Bad Request', { status: 400 });
   }
 };

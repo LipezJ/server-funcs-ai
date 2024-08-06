@@ -1,4 +1,4 @@
-import { atom } from 'nanostores';
+import { atom, map } from 'nanostores';
 import { DEFAULT_CODE } from '@lib/const';
 
 export class Mode {
@@ -11,4 +11,8 @@ export class Mode {
 	}
 }
 
-export const codeAtom = atom(DEFAULT_CODE);
+export const funcStore = map({
+	func_id : '',
+	code: DEFAULT_CODE,
+	type: 'json'
+});

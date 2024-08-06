@@ -1,7 +1,8 @@
 interface Props {
 	style: 'pri' | 'sec';
 	children: React.ReactNode;
-	onClick: () => void;
+	type: 'button' | 'submit' | 'reset';
+	onClick?: () => void;
 	className?: string;
 }
 
@@ -19,6 +20,8 @@ export default function Button(props: Props) {
         inline-flex items-center justify-center box-border
         ${styles[props.style]} ${props.className}
       `}
+			type={props.type}
+			onClick={props.onClick}
 		>
 			{props.children}
 		</button>

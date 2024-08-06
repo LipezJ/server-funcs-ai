@@ -1,0 +1,22 @@
+---
+import DashboardLayout from "@layouts/DashboardLayout.astro";
+import Dashboard from "@components/dashboard/Dashboard";
+import ApiKeyForm from "@components/dashboard/ApiKeyForm.astro";
+
+const funcId = Astro.params.id;
+if (!funcId) {
+	return Astro.redirect("/dashboard");
+}
+---
+
+<DashboardLayout class="flex flex-col h-full" style="fit">
+	<div class="flex-1 flex flex-col gap-2 overflow-hidden h-full">
+		<section
+			class="flex-1 flex flex-col my-1 mx-10 rounded-md border overflow-hidden h-full"
+		>
+			<Dashboard client:only="react" func_id={funcId} />
+		</section>
+	</div>
+</DashboardLayout>
+
+<ApiKeyForm />

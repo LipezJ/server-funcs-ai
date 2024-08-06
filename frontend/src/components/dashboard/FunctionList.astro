@@ -6,7 +6,6 @@ interface Function {
   func_id: string;
   type: string;
 }
-
 const response = await GET(Astro);
 const functions: Function[] = await response.json();
 ---

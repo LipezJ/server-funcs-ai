@@ -1,6 +1,6 @@
 ---
 import { fade } from "astro:transitions";
-import FunctionCard from "@components/dashboard/FunctionCard.astro";
+import FunctionList from "@components/dashboard/FunctionList.astro";
 import DashboardLayout from "@layouts/DashboardLayout.astro";
 ---
 
@@ -14,15 +14,7 @@ import DashboardLayout from "@layouts/DashboardLayout.astro";
 		<div
 			class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 gap-x-6 row-span-11 px-2 overflow-auto"
 		>
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
-			<FunctionCard name="hello" />
+			<FunctionList server:defer />
 		</div>
 	</section>
 </DashboardLayout>
