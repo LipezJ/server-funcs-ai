@@ -1,43 +1,28 @@
-# Build Stage
-FROM rust:1.68.0 as builder
+FROM rustlang/rust:nightly as builder
 
-RUN USER=root cargo new --bin v8-function-runner
-WORKDIR ./v8-function-runner
-ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
-COPY ./Cargo.toml ./Cargo.toml
-# Build empty app with downloaded dependencies to produce a stable image layer for next build
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN rustup default nightly
+
 RUN cargo build --release
 
-# Build web app with own code
-RUN rm src/*.rs
-ADD . ./
-RUN rm ./target/release/deps/axum_railway_template*
-RUN cargo build --release
+FROM ubuntu:22.04
 
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
-FROM debian:buster-slim
-ARG APP=/usr/src/app
+RUN useradd -m appuser
 
-RUN apt-get update \
-    && apt-get install -y ca-certificates tzdata \
-    && rm -rf /var/lib/apt/lists/*
+WORKDIR /home/appuser
 
-ENV TZ=Etc/UTC \
-    APP_USER=appuser
+COPY --from=builder /usr/src/app/target/release/v8-function-runner .
 
-RUN groupadd $APP_USER \
-    && useradd -g $APP_USER $APP_USER \
-    && mkdir -p ${APP}
+RUN chown -R appuser:appuser /home/appuser
 
-COPY --from=builder /v8-function-runner/target/release/v8-function-runner ${APP}/v8-function-runner
-
-RUN chown -R $APP_USER:$APP_USER ${APP}
-
-USER $APP_USER
-WORKDIR ${APP}
+USER appuser
 
 EXPOSE 3000
 ENV PORT 3000
-
 
 CMD ["./v8-function-runner"]
