@@ -1,6 +1,7 @@
 import Beaker from "@components/icons/Beaker";
 import Gear from "@components/icons/Gear";
 import Play from "@components/icons/Play";
+import Trash from "@components/icons/Trash";
 import Button from "@components/ui/Button";
 import { FunctionContext } from "@lib/dash.hook";
 import { useContext, useState } from "react";
@@ -41,7 +42,7 @@ function TestForm() {
 }
 
 function SettingsForm() {
-  const { func, setType } = useContext(FunctionContext)
+  const { func, deleteFunction, setType } = useContext(FunctionContext)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -66,7 +67,16 @@ function SettingsForm() {
           <option value="html">html</option>
         </select>
       </div>
-      <div className="flex justify-end w-full">
+      <div className="flex justify-between w-full">
+        <Button
+          title="delete function"
+          style="pri"
+          type="button"
+          className="p-2 bg-red-700 border-red-700 focus:ring-red-700/20"
+          onClick={deleteFunction}
+        >
+          <Trash /> Delete
+        </Button>
         <Button title="save settings" type="submit" style="pri" className="p-2">
           Save
         </Button>

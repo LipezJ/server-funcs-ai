@@ -1,18 +1,17 @@
 import Button from "@components/ui/Button";
 import Editor from "@components/dashboard/Editor";
 import CodeForm from "@components/dashboard/CodeForm";
-import useDashboard from "@lib/dash.hook";
+import useDashboard, { type FunctionData } from "@lib/dash.hook";
 import Zap from "@components/icons/Zap";
-import ArrowRight from "@components/icons/ArrowRight";
 import Breadcrumb from "./Breadcrumb";
 
 interface Props {
-  func_id: string
+  func: FunctionData
 }
 
 export default function Dashboard(props: Props) {
 
-  const { state, Context } = useDashboard(props.func_id)
+  const { state, Context } = useDashboard(props.func)
 
   return (
     <Context.Provider value={state}>

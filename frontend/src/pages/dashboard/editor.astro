@@ -3,10 +3,15 @@ import DashboardLayout from "@layouts/DashboardLayout.astro";
 import Dashboard from "@components/dashboard/Dashboard";
 import ApiKeyForm from "@components/dashboard/ApiKeyForm.astro";
 
-const funcId = Astro.params.id;
-if (!funcId) {
+import { GET } from "@api/functions";
+
+const res = await GET(Astro);
+
+if (!res.ok) {
 	return Astro.redirect("/dashboard");
 }
+
+const data = await res.json();
 ---
 
 <DashboardLayout class="flex flex-col h-full" style="fit">
@@ -14,7 +19,7 @@ if (!funcId) {
 		<section
 			class="flex-1 flex flex-col my-1 mx-2 md:mx-10 rounded-md border overflow-hidden h-full"
 		>
-			<Dashboard client:only="react" func_id={funcId} />
+			<Dashboard client:only="react" func={data} />
 		</section>
 	</div>
 </DashboardLayout>

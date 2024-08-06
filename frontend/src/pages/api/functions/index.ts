@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       .where(and(eq(functions.user_id, locals.user_id), eq(functions.func_id, funcId)))
       .run();
 
-    if (result.rowsAffected === 0) {
+    if (result.rows.length === 0) {
       return new Response('Not Found', { status: 404 });
     }
 

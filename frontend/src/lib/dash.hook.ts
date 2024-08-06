@@ -1,16 +1,17 @@
 import { createContext, useEffect, useState } from "react"
 
-interface FunctionData {
+export interface FunctionData {
   func_id: string
   code: string
   type: string
 }
 
 interface FunctionContextProps {
-  func: FunctionData,
+  func: FunctionData
   upgradable: boolean
   setCode: (code: string) => void
   setType: (type: string) => void
+  deleteFunction: () => void
   deploy: () => void
   isDeploying: boolean
 }
@@ -25,30 +26,25 @@ const Context = createContext<FunctionContextProps>({
   setCode: () => { },
   setType: () => { },
   deploy: () => { },
+  deleteFunction: () => { },
   isDeploying: false
 })
 
 const getFunction = async (id: string) => {
   const params = new URLSearchParams({ id })
   const res = await fetch(`/api/functions?${params}`)
-  const data = await res.json()
 
-  return data
+  if (!res.ok) {
+    window.location.href = '/dashboard'
+  }
+
+  return await res.json()
 }
 
-export default function useDashboard(id: string) {
-  const [func, setFunc] = useState<FunctionData>({
-    func_id: '',
-    code: '',
-    type: ''
-  })
+export default function useDashboard(props: FunctionData) {
+  const [func, setFunc] = useState<FunctionData>(props)
   const [ isDeploying, setIsDeploying ] = useState(false)
   const [ upgradable, setUpgradable ] = useState(false)
-
-  useEffect(() => {
-    getFunction(id)
-      .then(data => setFunc(data))
-  }, [id])
 
   const deploy = () => {
     if (isDeploying) return
@@ -82,9 +78,23 @@ export default function useDashboard(id: string) {
     setFunc(prev => ({ ...prev, type }))
   }
 
+  const deleteFunction = () => {
+    fetch("/api/functions", {
+      method: 'DELETE',
+      body: JSON.stringify({ id: func.func_id })
+    }).then(res => {
+      if (res.ok) {
+        alert('Deleted!')
+      } else {
+        alert('Failed to delete')
+      }
+    }).catch(() => alert('Failed to delete'))
+  }
+
   return { 
     state: {
-      func, setCode, setType, upgradable, deploy, isDeploying: isDeploying
+      func, setCode, setType, upgradable, deleteFunction,
+      deploy, isDeploying: isDeploying
     }, 
     Context 
   }
