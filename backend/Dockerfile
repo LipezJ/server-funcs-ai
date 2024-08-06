@@ -25,4 +25,4 @@ USER appuser
 EXPOSE 8080
 ENV PORT 8080
 
-CMD ["./v8-function-runner"]
+ENTRYPOINT ["./v8-function-runner"]
