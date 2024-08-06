@@ -4,9 +4,10 @@ mod runner;
 
 use std::{net::SocketAddr, sync::Arc};
 use dotenv::dotenv;
-use axum::{routing, Router};
+use axum::{http::Method, routing, Router};
 use libsql::Database;
 use utils::create_db;
+use tower_http::cors::{CorsLayer, Any};
 
 const TIMEOUT: u64 = 100;
 const POOL_SIZE: u32 = 100;
@@ -26,10 +27,16 @@ async fn main() {
 
 	let shared_app_state = Arc::new(AppState { db });
 
+	let cors = CorsLayer::new()
+    .allow_methods(vec![Method::GET, Method::POST])
+		.allow_headers(Any)
+    .allow_origin(Any);
+
 	let app = Router::new()
 		.route("/runner", routing::get(routes::runner_get))
 		.route("/runner", routing::post(routes::runner_post))
-		.with_state(shared_app_state);
+		.with_state(shared_app_state)
+		.layer(cors);
 
 	let port = std::env::var("PORT").unwrap_or("8080".to_string());
 	let port = port.parse::<u16>().unwrap();
