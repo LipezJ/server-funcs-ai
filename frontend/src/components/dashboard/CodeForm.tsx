@@ -8,7 +8,7 @@ import { useContext, useState } from 'react';
 
 function TestForm() {
 	const { backend, func } = useContext(FunctionContext);
-	const [url, setUrl] = useState<string>(backend);
+	const [url, setUrl] = useState<string>(`${backend}?id=${func.func_id}`);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -24,7 +24,7 @@ function TestForm() {
 		<>
 			<iframe
 				title="test-iframe"
-				src={`${url}?id=${func.func_id}`}
+				src={url}
 				className="w-full h-full row-span-8 rounded-sm"
 			/>
 			<form onSubmit={handleSubmit} className="flex items-end mr-1 w-full">
