@@ -7,7 +7,7 @@ import { FunctionContext } from '@lib/dash.hook';
 import { useContext, useState } from 'react';
 
 function TestForm() {
-	const { backend } = useContext(FunctionContext);
+	const { backend, func } = useContext(FunctionContext);
 	const [url, setUrl] = useState<string>(backend);
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ function TestForm() {
 		<>
 			<iframe
 				title="test-iframe"
-				src={url}
+				src={`${url}?id=${func.func_id}`}
 				className="w-full h-full row-span-8 rounded-sm"
 			/>
 			<form onSubmit={handleSubmit} className="flex items-end mr-1 w-full">

@@ -50,7 +50,10 @@ export default function useDashboard(props: FunctionData, backend: string) {
 
 	const deploy = () => {
 		if (isDeploying) return;
-		if (!upgradable) return;
+		if (!upgradable) {
+			alert('No changes to deploy');
+			return
+		};
 
 		setIsDeploying(true);
 

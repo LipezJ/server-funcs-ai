@@ -4,6 +4,7 @@ import CodeForm from '@components/dashboard/CodeForm';
 import useDashboard, { type FunctionData } from '@lib/dash.hook';
 import Zap from '@components/icons/Zap';
 import Breadcrumb from './Breadcrumb';
+import Rocket from '@components/icons/Rocket';
 
 interface Props {
 	func: FunctionData;
@@ -25,7 +26,7 @@ export default function Dashboard(props: Props) {
 						},
 					]}
 				/>
-				<div>
+				<div className="flex gap-2">
 					<Button
 						type="button"
 						style="pri"
@@ -33,9 +34,15 @@ export default function Dashboard(props: Props) {
 						onClick={state.deploy}
 						title="deploy the function"
 					>
-						<Zap />
+						<Rocket />
 						{state.isDeploying ? 'Deploying...' : 'Deploy'}
 					</Button>
+					<a href={`${state.backend}?id=${state.func.func_id}`}>
+						<Button type="button" style="pri" className="py-1 px-2 gap-1" title="go to your function">
+							<Zap />
+							Open
+						</Button>
+					</a>
 				</div>
 			</header>
 			<div className="flex-1 grid md:grid-cols-4 overflow-hidden h-full">
