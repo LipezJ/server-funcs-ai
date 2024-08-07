@@ -90,7 +90,7 @@ pub fn run_function(code: &str, args: &str) -> Result<String, String> {
   );
 
   let handle_scope = &mut v8::HandleScope::new(isolate);
-  let context = v8::Context::new(handle_scope);
+  let context = v8::Context::new(handle_scope, Default::default());
   let scope = &mut v8::ContextScope::new(handle_scope, context);
 
   init_functions(scope, context);
