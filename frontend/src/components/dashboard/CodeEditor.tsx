@@ -1,3 +1,4 @@
+import Loader from '@components/icons/Loader';
 import { FunctionContext } from '@lib/dash.hook';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useContext } from 'react';
@@ -17,6 +18,7 @@ export default function CodeEditor() {
 			defaultValue="// some comment"
 			value={func.code}
 			onChange={onChange}
+			loading={<Loader />}
 		/>
 	);
 }
