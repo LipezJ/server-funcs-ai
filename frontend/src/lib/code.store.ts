@@ -12,7 +12,7 @@ export class Mode {
 }
 
 export const funcStore = map({
-	func_id : '',
+	func_id: '',
 	code: DEFAULT_CODE,
-	type: 'json'
+	type: 'json',
 });

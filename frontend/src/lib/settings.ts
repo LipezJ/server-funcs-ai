@@ -15,7 +15,7 @@ export class Settings {
 		defaultEditorMode: 'chat',
 		askBeforeLeaving: true,
 		askToDeploy: false,
-	}
+	};
 
 	static {
 		const settings = localStorage.getItem('settings');
@@ -26,7 +26,10 @@ export class Settings {
 		}
 	}
 
-	static saveKey<T extends keyof SettingsOptions>(key: T, value: SettingsOptions[T]) {
+	static saveKey<T extends keyof SettingsOptions>(
+		key: T,
+		value: SettingsOptions[T],
+	) {
 		Settings.settings[key] = value;
 		localStorage.setItem('settings', JSON.stringify(Settings.settings));
 	}

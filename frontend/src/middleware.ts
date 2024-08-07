@@ -1,33 +1,33 @@
-import { defineMiddleware } from "astro:middleware";
-import { getSession } from "auth-astro/server";
+import { defineMiddleware } from 'astro:middleware';
+import { getSession } from 'auth-astro/server';
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const path = context.url.pathname;
+	const path = context.url.pathname;
 
-  if (path.startsWith('/api/functions')) {
-    const session = await getSession(context.request);
+	if (path.startsWith('/api/functions')) {
+		const session = await getSession(context.request);
 
-    if (!session) {
-      return new Response('Unauthorized', { status: 401 });
-    }
+		if (!session) {
+			return new Response('Unauthorized', { status: 401 });
+		}
 
-    const userId = session.user?.id;
+		const userId = session.user?.id;
 
-    if (!userId) {
-      return new Response('Invalid User', { status: 401 });
-    }
+		if (!userId) {
+			return new Response('Invalid User', { status: 401 });
+		}
 
-    context.locals.user_id = userId;
-  } else if (path.startsWith('/dashboard')) {
-    const session = await getSession(context.request);
-    
-    if (!session) {
-      return context.redirect('/?error=unauthorized');
-    }
+		context.locals.user_id = userId;
+	} else if (path.startsWith('/dashboard')) {
+		const session = await getSession(context.request);
 
-    context.locals.user_id = session.user?.id as string;
-    context.locals.avatar = session.user?.image;
-  }
+		if (!session) {
+			return context.redirect('/?error=unauthorized');
+		}
 
-  return next();
+		context.locals.user_id = session.user?.id as string;
+		context.locals.avatar = session.user?.image;
+	}
+
+	return next();
 });
