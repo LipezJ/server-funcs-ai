@@ -2,7 +2,7 @@
 import LinkButton from "@components/ui/LinkButton.astro";
 ---
 
-<section class="max-w-6xl m-auto px-10 py-4">
+<section class="max-w-6xl m-auto px-2 md:px-10 py-4">
 	<div
 		class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-6 xl:gap-0 lg:py-16 lg:grid-cols-12"
 	>
@@ -10,7 +10,7 @@ import LinkButton from "@components/ui/LinkButton.astro";
 			<h1
 				class="max-w-2xl mb-4 text-4xl text-pretty font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-text"
 			>
-				<span class="text-6xl">Uncomplicated</span>
+				<span class="md:text-6xl">Uncomplicated</span>
 				<span class="text-ter">serverless</span> functions with
 				<span class="text-ter">AI</span>
 			</h1>
@@ -21,7 +21,7 @@ import LinkButton from "@components/ui/LinkButton.astro";
 				provide a simple and easy-to-use API to deploy your serverless
 				functions with AI.
 			</p>
-			<LinkButton style="pri" href="#" class="text-text mr-3 px-5 py-3">
+			<LinkButton style="pri" href="#" class="text-text text-sm md:text-base mr-3 px-5 py-3">
 				Get started
 				<svg
 					class="w-5 h-5 ml-2 -mr-1"
@@ -35,7 +35,7 @@ import LinkButton from "@components/ui/LinkButton.astro";
 						clip-rule="evenodd"></path>
 				</svg>
 			</LinkButton>
-			<LinkButton style="sec" href="#" class="text-text px-5 py-3">
+			<LinkButton style="sec" href="/docs" class="text-text text-sm md:text-base px-5 py-3">
 				Docs
 				<svg
 					class="w-5 h-5 ml-2 text-text"

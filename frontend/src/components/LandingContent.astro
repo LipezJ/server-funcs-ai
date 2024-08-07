@@ -6,9 +6,9 @@ import LinkButton from "@components/ui/LinkButton.astro";
 
 <Content>
   <section class="pt-10 px-1 md:px-14 pb-20">
-    <h2 class="text-4xl font-extrabold">Features 🦆</h2>
-    <div class="grid grid-rows-6 sm:grid-rows-5 sm:grid-cols-5 gap-2 pt-10 md:px-10 lg:max-h-[90dvh]">
-      <div class="flex justify-center row-span-4 sm:row-span-5 sm:col-span-2">
+    <h2 class="text-3xl md:text-4xl font-extrabold">Features 🦆</h2>
+    <div class="flex flex-col md:grid sm:grid-rows-5 sm:grid-cols-5 gap-2 pt-6 md:pt-10 sm:px-10 lg:max-h-[90dvh]">
+      <div class="flex justify-center sm:row-span-5 sm:col-span-2">
         <Example
           image="/examples/todo.png"
           link="/examples/todo"
@@ -16,14 +16,14 @@ import LinkButton from "@components/ui/LinkButton.astro";
           description="Create and deploy a simple TODO application quickly with the power of AI assistance."
         />
       </div>
-      <div class="flex justify-center row-span-1 sm:row-span-2 sm:col-span-3">
+      <div class="flex justify-center sm:row-span-2 sm:col-span-3">
         <Example
           link="/docs"
           title="See Our Documentation"
           description="Learn how to create and deploy serverless functions with AI using our documentation."
         />
       </div>
-      <div class="flex justify-center row-span-1 sm:row-span-3 sm:col-span-3">
+      <div class="flex justify-center sm:row-span-3 sm:col-span-3">
         <Example
           image="/examples/dash.png"
           link="/examples/dashboard"
@@ -33,9 +33,9 @@ import LinkButton from "@components/ui/LinkButton.astro";
       </div>
     </div>
     <section class="mt-28">
-      <div class="flex flex-col justify-center py-8 lg:py-16 mx-auto max-w-4xl px-4">
+      <div class="flex flex-col justify-center py-8 lg:py-16 mx-auto max-w-4xl px-2 md:px-4">
         <h2 class="mb-8 lg:mb-16 text-4xl font-extrabold tracking-tight text-pretty leading-tight text-center text-black md:text-5xl">
-          ✨ Master V8 Isolate Javascript Engine for Powerful Applications🔨
+          ✨ Master <span class="text-ter">V8 Isolate</span> Javascript Engine for <span class="text-ter">Powerful Functions</span>
         </h2>
         <div class="flex flex-col bg-sec rounded-md w-fit mx-auto px-10 pb-4">
           <h3 class="text-2xl font-bold text-center text-white mt-4 mb-6">Key Features</h3>
