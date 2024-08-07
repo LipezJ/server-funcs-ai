@@ -5,7 +5,6 @@ import Pencil from '@components/icons/Pencil';
 import Button from '@components/ui/Button';
 
 import type { Message } from 'ai';
-import { set } from 'astro/zod';
 import { useState, createContext } from 'react';
 
 export const ChatContext = createContext({
