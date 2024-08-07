@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Settings, type SettingsType } from '@lib/settings';
 import { apiKey } from '@lib/settings.store';
-import { useAssistant, useChat } from 'ai/react';
+import { useAssistant, useChat, type Message } from 'ai/react';
 import { streamText, type CoreMessage } from 'ai';
 import { ollama } from 'ollama-ai-provider';
 import { AI_SYSTEM_PROMPT } from '@lib/const';
@@ -56,16 +56,19 @@ export async function ollamaFecth(
 	return result.toAIStreamResponse();
 }
 
-export function useFunctionChat() {
+export function useFunctionChat(messages: Message[] = []) {
 	const providerType = Settings.getKey('type');
 
 	if (providerType === 'openai') {
 		return useAssistant({
 			api: '/api/assistant',
 			headers: { Authorization: apiKey.get() },
+			body: {
+				messages: messages
+			}
 		});
 	}
-	const state = useChat({ fetch: ollamaFecth });
+	const state = useChat({ fetch: ollamaFecth, initialMessages: messages });
 	return {
 		...state,
 		status: state.isLoading ? 'in_progress' : 'awaiting_message',
