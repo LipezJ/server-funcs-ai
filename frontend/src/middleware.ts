@@ -22,7 +22,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		const session = await getSession(context.request);
 
 		if (!session) {
-			return context.redirect('/?error=unauthorized');
+			return context.redirect('/api/auth/signin');
 		}
 
 		context.locals.user_id = session.user?.id as string;
