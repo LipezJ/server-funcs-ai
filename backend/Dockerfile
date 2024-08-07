@@ -14,7 +14,7 @@ WORKDIR /usr/src/myapp
 COPY . .
 
 # Define el directorio de trabajo dentro del proyecto
-WORKDIR /usr/src/myapp/backend
+WORKDIR /usr/src/myapp/
 
 RUN cargo build --release
 
@@ -28,7 +28,7 @@ ENV TZ=Etc/UTC
 
 RUN useradd -m appuser
 
-COPY --from=builder /usr/src/myapp/backend/target/release/v8-function-runner /usr/local/bin/server
+COPY --from=builder /usr/src/myapp/target/release/v8-function-runner /usr/local/bin/server
 
 USER appuser
 
