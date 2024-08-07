@@ -1,0 +1,19 @@
+# Ignorar directorios y archivos generados por Cargo
+target/
+Cargo.lock
+Cargo.toml.orig
+*.rs.bk
+
+# Ignorar archivos de configuración local
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Ignorar archivos de caché y dependencias
+**/node_modules
+**/.env
+
+# Ignorar directorios y archivos específicos de Git
+.git/
+.gitignore
