@@ -12,6 +12,11 @@ export const ChatContext = createContext({
 	setMessages: (messages: Message[]) => {},
 })
 
+export const ModeContext = createContext({
+	mode: 'chat' as 'chat' | 'editor',
+	setMode: (mode: 'chat' | 'editor') => {},
+});
+
 export default function Editor() {
 	const [ messages, setMessages ] = useState<Message[]>([]);
 	const [ mode, setMode ] = useState<'chat' | 'editor'>('chat');
@@ -21,7 +26,7 @@ export default function Editor() {
 	};
 
 	return (
-		<>
+		<ModeContext.Provider value={{ mode, setMode }}>
 			{mode === 'chat' ? (
 				<section
 					id="chat-editor"
@@ -58,6 +63,6 @@ export default function Editor() {
 					<CodeEditor />
 				</section>
 			)}
-		</>
+		</ModeContext.Provider>
 	);
 }

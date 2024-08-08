@@ -1,10 +1,16 @@
 import { funcStore, Mode } from '@lib/code.store';
 import type { Message } from 'ai';
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 import Markdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
+import { ModeContext } from './Editor';
+import { FunctionContext } from '@lib/dash.hook';
 
 export default function ChatMessage({ role, content, data }: Message) {
+
+	const modeContext = useContext(ModeContext);
+	const functionContext = useContext(FunctionContext);
+
 	const changeMode = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
 		(e) => {
 			const button = e.target as HTMLButtonElement;
@@ -12,10 +18,10 @@ export default function ChatMessage({ role, content, data }: Message) {
 
 			const code = parent?.querySelector('code')?.textContent;
 
-			funcStore.setKey('code', code || '');
-			Mode.toggle();
+			functionContext.setCode(code || '');
+			modeContext.setMode('editor');
 		},
-		[],
+		[ modeContext, functionContext ],
 	);
 
 	const components = {
