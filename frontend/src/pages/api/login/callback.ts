@@ -39,9 +39,12 @@ export async function GET(context: APIContext): Promise<Response> {
     }
 
     // Replace this with your own DB client.
-    await db.insert(userTable).values({
-      id: githubUser.id
-    });
+    await db.insert(userTable)
+      .values({
+        id: githubUser.id,
+        name: githubUser.login,
+        image: githubUser.avatar_url
+      });
 
     const session = await lucia.createSession(githubUser.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
@@ -64,4 +67,5 @@ export async function GET(context: APIContext): Promise<Response> {
 interface GitHubUser {
   id: string;
   login: string;
+  avatar_url: string;
 }

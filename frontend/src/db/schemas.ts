@@ -5,7 +5,9 @@ import {
 } from 'drizzle-orm/sqlite-core';
 
 const userTable = sqliteTable("user", {
-	id: text("id").primaryKey()
+	id: text("id").primaryKey(),
+	name: text("name"),
+	image: text("image"),
 });
 
 const sessionTable = sqliteTable("session", {
