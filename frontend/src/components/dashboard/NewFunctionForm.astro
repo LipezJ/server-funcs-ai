@@ -3,8 +3,9 @@ import Modal from "@components/ui/Modal.astro";
 import SettingCard from "@components/dashboard/SettingCard.astro";
 import Input from "@components/ui/Input.astro";
 ---
+
 <button
-  id="modal"
+  id="modal-button"
   type="button"
   title="Create a new function"
   class="flex justify-center items-center justify-self-center max-w-xl min-w-2xl w-full min-h-40
@@ -62,3 +63,9 @@ import Input from "@components/ui/Input.astro";
     $modal.showModal();
   });
 </script>
+
+<style>
+  #modal-button svg {
+    pointer-events: none;
+  }
+</style>
