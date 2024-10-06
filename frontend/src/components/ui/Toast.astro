@@ -1,0 +1,79 @@
+---
+export interface Props {
+	timeout?: number;
+}
+---
+
+<section class="fixed w-dvw px-10 top-0 pointer-events-none z-10">
+	<div
+		id="toast"
+		class="bg-main rounded-b-xl px-5 pt-5 pb-3 max-w-md mx-auto h-fit border border-paragraph/50"
+	>
+	</div>
+</section>
+
+<template id="toast-template">
+	<h2 id="toast-title" class="text-lg font-bold"></h2>
+	<p id="toast-message" class="text-sm"></p>
+  <div class="w-1/4 h-1.5 mt-4 mx-auto bg-gray-400/70 rounded-xl"></div>
+</template>
+
+<script>
+  import type { ToastProps } from "@lib/toast";
+
+	const $toast = document.querySelector("#toast");
+
+	const showToast = (props: ToastProps) => {
+		const $template = document.querySelector(
+			"#toast-template"
+		) as HTMLTemplateElement;
+
+		const $title = $template.content.querySelector(
+			"#toast-title"
+		) as HTMLHeadingElement;
+		const $message = $template.content.querySelector(
+			"#toast-message"
+		) as HTMLParagraphElement;
+
+		$title.textContent = props.title;
+		$message.textContent = props.message || "";
+
+		if (!$toast) return;
+		$toast.innerHTML = "";
+		$toast.appendChild($template.content.cloneNode(true));
+
+		$toast.classList.remove("hide");
+		$toast.classList.add("show");
+
+		let timeout = setTimeout(() => {
+			$toast.classList.remove("show");
+			$toast.classList.add("hide");
+		}, 3000);
+
+		$toast.addEventListener("mouseover", () => clearTimeout(timeout));
+		$toast.addEventListener("mouseout", () => {
+			timeout = setTimeout(() => {
+				$toast.classList.remove("show");
+				$toast.classList.add("hide");
+			}, 2500);
+		});
+	};
+
+	if ($toast) {
+		// @ts-ignore
+		$toast.show = showToast;
+	}
+</script>
+
+<style>
+	#toast {
+		transition: transform 0.15s ease-out;
+		transform: translateY(-100%);
+	}
+	#toast.hide {
+		transform: translateY(-100%);
+	}
+	#toast.show {
+		transform: translateY(0);
+	}
+</style>

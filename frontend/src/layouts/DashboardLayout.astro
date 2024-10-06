@@ -1,6 +1,7 @@
 ---
 import Header from "@components/dashboard/Header.astro";
 import HeadBase from "@components/HeadBase.astro";
+import Toast from "@components/ui/Toast.astro";
 
 export interface Props {
 	style?: "full" | "fit";
@@ -25,4 +26,5 @@ export interface Props {
 			<slot />
 		</main>
 	</body>
+	<Toast />
 </html>

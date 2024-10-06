@@ -6,7 +6,6 @@ import { streamText } from 'ai';
 import { ollama } from 'ollama-ai-provider';
 import { AI_SYSTEM_PROMPT } from '@lib/const';
 import { GlobalChatContext } from './editor.hook';
-
 async function ollamaFecth(
 	input: string | RequestInfo | URL,
 	init?: RequestInit | undefined,
@@ -27,8 +26,6 @@ function useAIChat(messages: Message[] = []) {
 	const providerType = Settings.getKey('type');
 	const threadId = useRef<string | undefined>(undefined);
 
-	console.log('function chat', messages);
-
 	if (providerType === 'openai') {
 		const assistant = useAssistant({
 			api: '/api/assistant',
@@ -37,6 +34,19 @@ function useAIChat(messages: Message[] = []) {
 				messages: messages
 			},
 			threadId: threadId.current,
+			onError: (error) => {
+				const $toast = document.querySelector('#toast');
+				let message;
+
+				if (error.message === 'Unauthorized') {
+					message = 'Invalid API key, please refresh the page and try again.';					
+				} else {
+					message = error.message;
+				}
+				
+				// @ts-ignore
+				$toast?.show({ message: message, title: 'Error' });
+			}
 		});
 		threadId.current = assistant.threadId;
 		return assistant;

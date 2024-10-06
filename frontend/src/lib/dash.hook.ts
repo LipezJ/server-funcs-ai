@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import toast from './toast';
 
 export interface FunctionData {
 	func_id: string;
@@ -51,7 +52,7 @@ export default function useDashboard(props: FunctionData, backend: string) {
 	const deploy = () => {
 		if (isDeploying) return;
 		if (!upgradable) {
-			alert('No changes to deploy');
+			toast({ title: 'No changes detected' });
 			return
 		};
 
@@ -63,9 +64,9 @@ export default function useDashboard(props: FunctionData, backend: string) {
 		})
 			.then((res) => {
 				if (res.ok) {
-					alert('Deployed!');
+					toast({ title: 'Deployed!' });
 				} else {
-					alert('Failed to deploy');
+					toast({ title: 'Failed to deploy' });
 				}
 			})
 			.catch((err) => {
