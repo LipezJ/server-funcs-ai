@@ -18,7 +18,6 @@ export async function GET(context: APIContext): Promise<Response> {
 
   try {
     const tokens = await github.validateAuthorizationCode(code);
-    console.log(tokens);
     const githubUserResponse = await fetch("https://api.github.com/user", {
       headers: {
         Authorization: `Bearer ${tokens.accessToken}`
@@ -28,8 +27,6 @@ export async function GET(context: APIContext): Promise<Response> {
 
     // Replace this with your own DB client.
     const [existingUser] = await db.select({ id: userTable.id }).from(userTable).where(eq(userTable.id, githubUser.id));
-
-    console.log(existingUser);
 
     if (existingUser) {
       const session = await lucia.createSession(existingUser.id, {});
