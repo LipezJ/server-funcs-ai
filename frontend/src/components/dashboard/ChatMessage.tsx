@@ -1,10 +1,9 @@
-import { funcStore, Mode } from '@lib/code.store';
 import type { Message } from 'ai';
 import { useCallback, useContext } from 'react';
 import Markdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
-import { ModeContext } from './Editor';
 import { FunctionContext } from '@lib/dash.hook';
+import { ModeContext } from '@lib/editor.hook';
 
 export default function ChatMessage({ role, content, data }: Message) {
 

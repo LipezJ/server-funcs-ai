@@ -1,16 +1,12 @@
 import type { Message } from 'ai/react';
 import Loader from '@components/icons/Loader';
-import { useFunctionChat } from '@lib/chat.hook';
+import useFunctionChat from '@lib/chat.hook';
 import ChatMessage from '@components/dashboard/ChatMessage';
 
 import 'highlight.js/styles/vs2015.min.css';
-import { useContext } from 'react';
-import { ChatContext } from '@components/dashboard/Editor';
 
 export default function Chat() {
-	const initial = useContext(ChatContext);
-	const { status, messages, input, submitMessage, handleInputChange } =
-		useFunctionChat(initial.messages);
+	const { messages, submitMessage, input, handleInputChange, status } = useFunctionChat();
 
 	return (
 		<section className="flex flex-col items-center gap-1 text-black overflow-hidden h-full">
