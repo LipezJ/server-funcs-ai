@@ -1,13 +1,13 @@
 ---
 import LinkButton from '@components/ui/LinkButton.astro';
 import NewFunctionForm from '@components/dashboard/NewFunctionForm.astro';
-import { GET } from '../../pages/api/functions/list.ts'
+import { GET } from '../../pages/api/functions/list'
 
 interface Function {
   func_id: string;
   type: string;
 }
-const response = await GET(Astro);
+const response = await GET(Astro) as Response;
 const functions: Function[] = await response.json();
 const backend = import.meta.env.BACKEND_URL;
 ---

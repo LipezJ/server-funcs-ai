@@ -6,7 +6,10 @@ export interface Props {
 }
 ---
 
-<section id="modal-container" class="hide fixed bottom-0 left-0 w-full max-h-[80dvh] z-10 mt-auto">
+<section
+	id=`${Astro.props.id}-modal-container`
+	class="modal-container hide fixed bottom-0 left-0 w-full max-h-[80dvh] z-10 mt-auto"
+>
 	<div id={Astro.props.id} class="modal mx-auto max-w-2xl self-end">
 		<Content style="fit">
 			<div class="max-w-2xl mx-auto px-2 md:px-10 pb-4">
@@ -17,52 +20,43 @@ export interface Props {
 </section>
 
 <style>
-	.modal {
-		transition: transform 0.1s ease-out;
+	.modal, .modal-container {
+		transition: transform 0.15s ease-out;
 		transform: translateY(100%);
 	}
 
-	.modal.show {
+	.modal.show, .modal-container.show {
 		transform: translateY(0);
 	}
 
-	.modal.hide {
+	.modal.hide, .modal-container.hide {
 		transform: translateY(100%);
-	}
-
-	#modal-container.hide {
-		display: none;
 	}
 </style>
 
 <script is:inline define:vars={{ id: Astro.props.id }}>
 	const $modal = document.getElementById(id);
-	const $modalContainer = document.getElementById("modal-container");
+	const $modalContainer = document.getElementById(`${id}-modal-container`);
 
 	$modal.showModal = () => {
 		$modalContainer.classList.remove("hide");
-		$modal?.classList.remove("hide");
+		$modalContainer.classList.add("show");
 		$modal?.classList.add("show");
+		$modal?.classList.remove("hide");
 	};
 
 	$modal.hideModal = () => {
 		$modal.hideCallBack && $modal.hideCallBack();
 		$modal?.classList.add("hide");
 		$modal?.classList.remove("show");
-		setTimeout(() => {
-			$modalContainer.classList.add("hide");
-		}, 150);
+		$modalContainer.classList.add("hide");
+		$modalContainer.classList.remove("show");
 	};
-
-	$modal.hideModal();
 
 	window.addEventListener("click", (event) => {
 		const $target = event.target;
 
-		if (
-			!document.getElementById("clickbox")?.contains($modal) &&
-			!$modal?.contains($target) && !$target.id.includes("modal")
-		) {
+		if (!$modal.contains($target) && $target.contains($modalContainer)) {
 			$modal.hideModal();
 		}
 	});
