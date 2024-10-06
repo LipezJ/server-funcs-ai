@@ -1,11 +1,10 @@
 import type { APIRoute } from 'astro';
-import { getSession } from 'auth-astro/server';
 import { db } from '@db/db';
-import { functions } from '@db/schemas';
+import { functionTable } from '@db/schemas';
 import { eq } from 'drizzle-orm';
 
-export const GET: APIRoute = async ({ request }) => {
-	const session = await getSession(request);
+export const GET: APIRoute = async ({ request, locals }) => {
+	const session = locals
 
 	if (!session) {
 		return new Response('Unauthorized', { status: 401 });
@@ -20,11 +19,11 @@ export const GET: APIRoute = async ({ request }) => {
 
 	const result = await db
 		.select({
-			func_id: functions.func_id,
-			type: functions.type,
+			func_id: functionTable.func_id,
+			type: functionTable.type,
 		})
-		.from(functions)
-		.where(eq(functions.user_id, userId))
+		.from(functionTable)
+		.where(eq(functionTable.user_id, userId))
 		.all();
 
 	return new Response(JSON.stringify(result), {

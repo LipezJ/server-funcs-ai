@@ -1,3 +1,4 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
@@ -13,7 +14,7 @@ interface ImportMeta {
 
 declare namespace App {
 	interface Locals {
-		user_id: string;
-		avatar: string | undefined | null;
+		session: import("lucia").Session | null;
+		user: import("lucia").User | null;
 	}
 }
