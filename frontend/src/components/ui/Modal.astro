@@ -56,8 +56,6 @@ export interface Props {
 	window.addEventListener("click", (event) => {
 		const $target = event.target;
 
-		console.log(!$modal.contains($target));
-
 		if (!$modal.contains($target)) {
 			$modal.hideModal();
 		}
