@@ -1,5 +1,5 @@
 import { db } from '@db/db';
-import { functions } from '@db/schemas';
+import { functionTable } from '@db/schemas';
 import type { APIRoute } from 'astro';
 import { and, eq } from 'drizzle-orm';
 
@@ -13,18 +13,18 @@ export const GET: APIRoute = async ({ request, locals }) => {
 	try {
 		const query = new URL(request.url).searchParams;
 		const funcId = query.get('id');
+		const userId = locals.user?.id;
 
-		if (!funcId) {
-			return new Response('Bad Request', { status: 400 });
-		}
+		if (!funcId) return new Response('Bad Request', { status: 400 });
+		if (!userId) return new Response('Unauthorized', { status: 401 });
 
 		const result = await db
 			.select()
-			.from(functions)
+			.from(functionTable)
 			.where(
 				and(
-					eq(functions.user_id, locals.user_id),
-					eq(functions.func_id, funcId),
+					eq(functionTable.user_id, userId),
+					eq(functionTable.func_id, funcId),
 				),
 			)
 			.run();
@@ -47,15 +47,18 @@ export const GET: APIRoute = async ({ request, locals }) => {
 export const POST: APIRoute = async ({ request, locals, redirect }) => {
 	try {
 		const form = await request.formData();
+		const userId = locals.user?.id;
 		const funcId =
 			form.get('func_id')?.toString() ??
 			Math.random().toString(36).substring(7);
 
+		if (!userId) return new Response('Unauthorized', { status: 401 });
+
 		const result = await db
-			.insert(functions)
+			.insert(functionTable)
 			.values({
 				func_id: funcId,
-				user_id: locals.user_id,
+				user_id: userId,
 				code: form.get('code')?.toString(),
 				type: form.get('type')?.toString(),
 			})
@@ -75,10 +78,10 @@ export const PATCH: APIRoute = async ({ request, locals }) => {
 	try {
 		const body = (await request.json()) as FunctionData;
 		const funcId = body.func_id;
+		const userId = locals.user?.id;
 
-		if (!funcId) {
-			return new Response('Bad Request', { status: 400 });
-		}
+		if (!funcId) return new Response('Bad Request', { status: 400 });
+		if (!userId) return new Response('Unauthorized', { status: 401 });
 
 		let data: FunctionData;
 
@@ -98,12 +101,12 @@ export const PATCH: APIRoute = async ({ request, locals }) => {
 		}
 
 		const result = await db
-			.update(functions)
+			.update(functionTable)
 			.set(data)
 			.where(
 				and(
-					eq(functions.user_id, locals.user_id),
-					eq(functions.func_id, funcId),
+					eq(functionTable.user_id, userId),
+					eq(functionTable.func_id, funcId),
 				),
 			)
 			.run();
@@ -122,17 +125,17 @@ export const DELETE: APIRoute = async ({ request, locals }) => {
 	try {
 		const body = await request.json();
 		const funcId = body.id as string;
+		const userId = locals.user?.id;
 
-		if (!funcId) {
-			return new Response('Bad Request', { status: 400 });
-		}
+		if (!funcId) return new Response('Bad Request', { status: 400 });
+		if (!userId) return new Response('Unauthorized', { status: 401 });
 
 		const result = await db
-			.delete(functions)
+			.delete(functionTable)
 			.where(
 				and(
-					eq(functions.user_id, locals.user_id),
-					eq(functions.func_id, funcId),
+					eq(functionTable.user_id, userId),
+					eq(functionTable.func_id, funcId),
 				),
 			)
 			.run();

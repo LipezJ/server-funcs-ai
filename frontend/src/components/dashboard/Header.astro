@@ -1,7 +1,7 @@
 ---
 import LinkButton from "@components/ui/LinkButton.astro";
 
-const avatar = Astro.locals.avatar;
+const avatar = Astro.locals.user?.avatar;
 ---
 
 <header class="flex w-full justify-between items-center py-2 px-10 border-b">
