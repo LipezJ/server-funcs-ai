@@ -58,9 +58,10 @@ import Input from "@components/ui/Input.astro";
     }
   });
 
-  $button?.addEventListener("click", () => {
+  $button?.addEventListener("click", (e) => {
     // @ts-ignore
     $modal.showModal();
+    e.stopPropagation();
   });
 </script>
 
