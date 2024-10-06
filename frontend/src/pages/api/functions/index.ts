@@ -48,10 +48,11 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
 	try {
 		const form = await request.formData();
 		const userId = locals.user?.id;
-		const funcId =
-			form.get('func_id')?.toString() ??
+		let funcId =
+			form.get('func_id')?.toString()?.trim() ??
 			Math.random().toString(36).substring(7);
 
+		if (funcId.length < 7) return new Response('Bad Request', { status: 400 });
 		if (!userId) return new Response('Unauthorized', { status: 401 });
 
 		const result = await db
@@ -70,7 +71,7 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
 
 		return new Response(JSON.stringify({ func_id: funcId }), { status: 200 });
 	} catch {
-		return new Response('Bad Request', { status: 400 });
+		return new Response('Bad Request', { status: 500 });
 	}
 };
 
