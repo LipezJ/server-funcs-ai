@@ -14,7 +14,9 @@ RUN npm run build --workspace frontend
 FROM node:20-slim AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    HOST=0.0.0.0 \
+    PORT=4321
 
 COPY package*.json ./
 COPY frontend/package*.json frontend/
