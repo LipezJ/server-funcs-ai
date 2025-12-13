@@ -12,7 +12,7 @@ if (!res.ok	) {
 }
 
 const data = await res.json();
-const backend = import.meta.env.BACKEND_URL;
+const backend = process.env.BACKEND_URL ?? "";
 ---
 
 <DashboardLayout class="flex flex-col h-full" style="fit">

@@ -2,10 +2,19 @@ import { Lucia } from "lucia";
 import { adapter } from "@db/adapter";
 import { GitHub } from "arctic";
 
-export const github = new GitHub(
-	import.meta.env.GITHUB_CLIENT_ID,
-	import.meta.env.GITHUB_CLIENT_SECRET
-);
+const githubClientId =
+	process.env.GITHUB_CLIENT_ID ??
+	(() => {
+		throw new Error("GITHUB_CLIENT_ID is not set");
+	})();
+
+const githubClientSecret =
+	process.env.GITHUB_CLIENT_SECRET ??
+	(() => {
+		throw new Error("GITHUB_CLIENT_SECRET is not set");
+	})();
+
+export const github = new GitHub(githubClientId, githubClientSecret);
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {

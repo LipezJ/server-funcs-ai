@@ -9,7 +9,7 @@ interface Function {
 }
 const response = await GET(Astro) as Response;
 const functions: Function[] = await response.json();
-const backend = import.meta.env.BACKEND_URL;
+const backend = process.env.BACKEND_URL ?? "";
 ---
 
 <NewFunctionForm />

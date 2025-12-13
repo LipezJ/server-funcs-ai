@@ -1,15 +1,15 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-interface ImportMetaEnv {
-	readonly BACKEND_URL: string;
-	readonly ASSISTANT_ID: string;
-	readonly GITHUB_CLIENT_ID: string;
-	readonly GITHUB_CLIENT_SECRET: string;
-}
-
-interface ImportMeta {
-	readonly env: ImportMetaEnv;
+declare namespace NodeJS {
+	interface ProcessEnv {
+		BACKEND_URL?: string;
+		ASSISTANT_ID?: string;
+		GITHUB_CLIENT_ID?: string;
+		GITHUB_CLIENT_SECRET?: string;
+		LIBSQL_URL?: string;
+		LIBSQL_AUTH_TOKEN?: string;
+	}
 }
 
 declare namespace App {

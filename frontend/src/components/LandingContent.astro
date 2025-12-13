@@ -3,7 +3,7 @@ import Content from "@layouts/Content.astro";
 import Example from "@components/Example.astro";
 import LinkButton from "@components/ui/LinkButton.astro";
 
-const backend = import.meta.env.BACKEND_URL;
+const backend = process.env.BACKEND_URL ?? "";
 ---
 
 <Content>

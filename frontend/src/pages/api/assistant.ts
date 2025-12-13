@@ -15,7 +15,11 @@ export const POST: APIRoute = async ({ request }) => {
 
 	const input: InputData = await request.json();
 	const assistantId =
-		request.headers.get('Assistant-Id') ?? import.meta.env.ASSISTANT_ID;
+		request.headers.get('Assistant-Id') ??
+		process.env.ASSISTANT_ID ??
+		(() => {
+			throw new Error('ASSISTANT_ID is not set');
+		})();
 
 	const openai = new OpenAI({
 		apiKey: token,
